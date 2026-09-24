@@ -1,0 +1,29 @@
+{
+  "name": "paraiso-do-saber",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api -c green,blue \"npm run dev --workspace @paraiso/web\" \"npm run start:dev --workspace @paraiso/api\"",
+    "build": "npm run db:generate && npm run build --workspace @paraiso/api && npm run build --workspace @paraiso/web",
+    "db:generate": "npm run prisma:generate --workspace @paraiso/api",
+    "db:push": "npm run db:generate && npm run prisma:push --workspace @paraiso/api",
+    "db:migrate": "npm run db:generate && npm run prisma:migrate --workspace @paraiso/api",
+    "db:seed": "npm run db:generate && npm run prisma:seed --workspace @paraiso/api"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.23"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.28.2"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  }
+}

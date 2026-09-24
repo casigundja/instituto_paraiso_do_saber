@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  ATTENDANCE
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  NEGOTIATING
+  ENROLLED
+  NOT_INTERESTED
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+  ARCHIVED
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String
+  passwordHash String
+  role         Role       @default(EDITOR)
+  active       Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  auditLogs    AuditLog[]
+}
+
+model Course {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  description     String   @db.Text
+  image           String?
+  duration        String?
+  modality        String?
+  area            String?
+  status          String   @default("ACTIVE")
+  featured        Boolean  @default(false)
+  objectives      String?  @db.Text
+  careerProfile   String?  @db.Text
+  requirements    String?  @db.Text
+  curriculum      String?  @db.Text
+  schedule        String?
+  location        String?
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Event {
+  id              String            @id @default(cuid())
+  slug            String            @unique
+  title           String
+  description     String            @db.Text
+  image           String?
+  video           String?
+  startsAt        DateTime
+  endsAt          DateTime?
+  time            String?
+  location        String?
+  speaker         String?
+  registrationUrl String?
+  status          String            @default("UPCOMING")
+  publication     PublicationStatus @default(DRAFT)
+  createdAt       DateTime          @default(now())
+}
+
+model Campaign {
+  id          String            @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String?
+  image       String?
+  video       String?
+  buttonText  String?
+  url         String?
+  startsAt    DateTime?
+  endsAt      DateTime?
+  order       Int               @default(0)
+  pages       String            @default("home")
+  status      PublicationStatus @default(DRAFT)
+  createdAt   DateTime          @default(now())
+}
+
+model News {
+  id              String            @id @default(cuid())
+  slug            String            @unique
+  title           String
+  summary         String            @db.Text
+  content         String            @db.Text
+  image           String?
+  video           String?
+  author          String?
+  category        String
+  tags            String?
+  status          PublicationStatus @default(DRAFT)
+  publishAt       DateTime?
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model Media {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  mimeType     String
+  url          String
+  size         Int
+  category     String?
+  createdAt    DateTime @default(now())
+}
+
+model Lead {
+  id          String     @id @default(cuid())
+  name        String
+  phone       String
+  whatsapp    String?
+  email       String?
+  course      String?
+  municipality String?
+  notes       String?
+  status      LeadStatus @default(NEW)
+  createdAt   DateTime   @default(now())
+}
+
+model SiteSetting {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model HomeSection {
+  id          String  @id @default(cuid())
+  key         String  @unique
+  title       String?
+  description String?
+  image       String?
+  video       String?
+  buttonText  String?
+  buttonUrl   String?
+  enabled     Boolean @default(true)
+  order       Int     @default(0)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  entity    String
+  entityId  String?
+  details   String?  @db.Text
+  ip        String?
+  createdAt DateTime @default(now())
+}

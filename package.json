@@ -1,0 +1,25 @@
+{
+  "name": "paraiso-do-saber",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "php artisan serve",
+    "build": "node scripts/build.cjs",
+    "typecheck": "tsc --noEmit -p tsconfig.portal.json",
+    "check:pages": "node scripts/check-institutional.cjs",
+    "check:admin": "node scripts/check-admin-style.cjs",
+    "dev:assets": "node scripts/build.cjs --watch"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  }
+}
