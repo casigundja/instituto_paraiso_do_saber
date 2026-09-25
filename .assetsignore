@@ -3,6 +3,8 @@ vendor/
 .git/
 .github/
 .next/
+.agents/
+skills-lock.json
 apps/
 app/
 artifacts/
