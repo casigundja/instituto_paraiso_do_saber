@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.portal.json",
     "check:pages": "node scripts/check-institutional.cjs",
     "check:admin": "node scripts/check-admin-style.cjs",
-    "dev:assets": "node scripts/build.cjs --watch"
+    "dev:assets": "node scripts/build.cjs --watch",
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
@@ -16,7 +17,9 @@
     "@types/react-dom": "^19.3.0",
     "concurrently": "^9.2.1",
     "esbuild": "^0.28.2",
-    "typescript": "^7.0.2"
+    "supabase": "^2.117.0",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.139.0"
   },
   "dependencies": {
     "react": "^19.3.0",
