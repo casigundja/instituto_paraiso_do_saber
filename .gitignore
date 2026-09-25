@@ -2,9 +2,14 @@ node_modules/
 .next/
 dist/
 apps/api/generated/
+# Environment and Secrets
 .env
+.env.*
+!.env.example
 .env.local
 legacy/.env.node
+supabase/.temp/
+supabase/.branches/
 /vendor/
 /.laravel-scaffold/
 /storage/*.key
