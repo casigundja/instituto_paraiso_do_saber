@@ -57,9 +57,22 @@ class PortalController extends Controller
 
     public function login(Request $request)
     {
-        $data = $request->validate(['email' => 'required|email', 'password' => 'required|string']);
-        $user = $this->table('users')->where('email', strtolower($data['email']))->where('active', true)->first();
-        abort_unless($user && Hash::check($data['password'], $user->passwordHash), 422, 'E-mail ou palavra-passe inválidos.');
+        $input = $request->all();
+        $rawIdentifier = trim($input['identifier'] ?? $input['email'] ?? '');
+        $password = trim($input['password'] ?? '');
+
+        abort_if(empty($rawIdentifier) || empty($password), 422, 'Identificador e palavra-passe são obrigatórios.');
+
+        $identifier = strtolower($rawIdentifier);
+        $user = $this->table('users')
+            ->where(function ($query) use ($identifier) {
+                $query->where('email', $identifier)
+                      ->orWhere('email', $identifier.'@paraisodosaber.ao');
+            })
+            ->where('active', true)
+            ->first();
+
+        abort_unless($user && Hash::check($password, $user->passwordHash), 422, 'E-mail ou palavra-passe inválidos.');
         $token = Str::random(80);
         DB::table('portal_tokens')->insert(['hash' => hash('sha256', $token), 'userId' => $user->id, 'expiresAt' => now()->addHours(8)]);
 
@@ -96,7 +109,7 @@ class PortalController extends Controller
             }
         }
 
-        return ['message' => 'Se a conta estiver activa, enviaremos uma ligação de recuperação para o e-mail informado.'];
+        return ['message' => 'Se a conta estiver ativa, enviaremos uma ligação de recuperação para o endereço de e-mail indicado.'];
     }
 
     public function resetPassword(Request $request)
@@ -117,7 +130,7 @@ class PortalController extends Controller
             DB::table('portal_password_resets')->where('email', $email)->delete();
         });
 
-        return ['message' => 'Palavra-passe actualizada. Já pode iniciar sessão.'];
+        return ['message' => 'Palavra-passe atualizada. Já pode iniciar sessão.'];
     }
 
     private function published(string $entity)
@@ -174,7 +187,12 @@ class PortalController extends Controller
         foreach (['courses', 'events', 'news', 'campaigns'] as $entity) {
             $query = $this->published($entity);
             if ($entity === 'events') {
-                $query->where('startsAt', '>=', now())->limit(4);
+                $upcoming = (clone $query)->where('startsAt', '>=', now())->limit(4)->get();
+                if ($upcoming->isEmpty()) {
+                    $upcoming = (clone $query)->orderByDesc('startsAt')->limit(4)->get();
+                }
+                $data[$entity] = $upcoming->map(fn ($row) => $this->serialize($entity, $row));
+                continue;
             }
             if ($entity === 'news') {
                 $query->limit(3);

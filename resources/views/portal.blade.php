@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-AO">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,10 @@
     <meta property="og:url" content="{{ $canonicalUrl ?? url('/') }}">
     <meta name="twitter:card" content="summary_large_image">
     @if(!empty($noindex))<meta name="robots" content="noindex,nofollow">@endif
-    <link rel="icon" href="/logo_paraiso_do_saber.jpeg">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+    <link rel="shortcut icon" href="/favicon.ico?v=2">
     <link rel="stylesheet" href="/site.css">
     <link rel="stylesheet" href="/portal.css">
     <link rel="stylesheet" href="/institutional.css">

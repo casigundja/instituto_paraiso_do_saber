@@ -1,6 +1,9 @@
 node_modules/
 .next/
 dist/
+scratch/
+artifacts/
+.phpunit.result.cache
 apps/api/generated/
 # Environment and Secrets
 .env

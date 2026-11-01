@@ -12,7 +12,7 @@ class PortalPageController extends Controller
     {
         $name = 'Instituto Paraíso do Saber';
         $title = $name.' | Formação que transforma';
-        $description = 'Conheça os cursos, eventos e actividades do Instituto Técnico Privado de Saúde Paraíso do Saber.';
+        $description = 'Conheça os cursos, eventos e atividades do Instituto Técnico Privado de Saúde Paraíso do Saber.';
         $image = URL::to('/banner1.jpeg');
         $canonical = URL::current();
         $settings = DB::table('portal_settings')->pluck('value', 'key');

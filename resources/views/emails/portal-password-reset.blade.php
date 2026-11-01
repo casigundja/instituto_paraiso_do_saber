@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-AO">
+<html lang="pt-PT">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recuperar palavra-passe</title></head>
 <body style="margin:0;padding:32px 14px;background:#f3f5f7;color:#18334c;font-family:Arial,sans-serif">
 <main style="max-width:560px;margin:auto;padding:36px;background:#fff;border-top:5px solid #c1dc75;border-radius:8px">

@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-export const defaults={institutionName:'Instituto Técnico Privado de Saúde Paraíso do Saber',logo:'/logo_paraiso_do_saber.jpeg',phone1:'+244 930 133 850',phone2:'+244 953 955 368',whatsapp:'244930133850',address:'Bairro Paraíso, depois da Pracinha Nova, em frente à Casa do Partido do MPLA.'};
+export const defaults={institutionName:'Instituto Técnico Privado de Saúde Paraíso do Saber',logo:'/logo_transparent.png',phone1:'+244 930 133 850',phone2:'+244 953 955 368',whatsapp:'244930133850',facebook:'https://www.facebook.com/EFTSPARAISODOSABER',instagram:'https://www.instagram.com/instituto_paraiso_do_saber',address:'Bairro Paraíso, depois da Pracinha Nova, em frente à Casa do Partido do MPLA.'};
 export const asset=(url:string)=>/^https?:\/\//.test(url)||url.startsWith('/')?url:'/'+url;
 let portalPromise:Promise<any>|undefined;
 export function usePortal(enabled=true){
@@ -9,4 +9,4 @@ export function usePortal(enabled=true){
 }
 export function useTitle(title:string){useEffect(()=>{document.title=title+' | Instituto Paraíso do Saber'},[title])}
 export const paths={courses:'cursos',events:'eventos',news:'noticias',media:'galeria'};
-export const dateLabel=(value:string)=>value?new Date(value).toLocaleDateString('pt-AO',{day:'numeric',month:'long',year:'numeric'}):'';
+export const dateLabel=(value:string)=>value?new Date(value).toLocaleDateString('pt-PT',{day:'numeric',month:'long',year:'numeric'}):'';
