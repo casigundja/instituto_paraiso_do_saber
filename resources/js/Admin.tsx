@@ -160,6 +160,7 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
   const [token,setToken]=useState(''),[user,setUser]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[error,setError]=useState('');
   const [showPassword,setShowPassword]=useState(false),[submitting,setSubmitting]=useState(false);
   const [tab,setTab]=useState('overview'),[rows,setRows]=useState<any[]>([]),[stats,setStats]=useState<any>({}),[settings,setSettings]=useState<any>({}),[homeSections,setHomeSections]=useState<any[]>([]),[loading,setLoading]=useState(false);
+  const [mobileNavOpen,setMobileNavOpen]=useState(false);
   const [toasts,setToasts]=useState<Toast[]>([]);
   const [confirmModal,setConfirmModal]=useState<ConfirmModalData|null>(null);
 
@@ -424,17 +425,41 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
     ['audit','≡','Registo de Auditoria','Consultar histórico de operações no sistema'],
   ];
   const visibleShortcuts = allShortcuts.filter(([key]) => allowedTabs.includes(key)).slice(0, 4);
+  const visibleNav = navigation.filter(([key])=>allowedTabs.includes(key));
+  const selectTab = (nextTab: string) => {
+    setTab(nextTab);
+    setMobileNavOpen(false);
+  };
   return <div className="admin-shell">
   <ToastContainer toasts={toasts} onDismiss={dismissToast}/>
   <ConfirmDialog modal={confirmModal} onClose={()=>setConfirmModal(null)}/>
-  <aside className="admin-side">
-    <a href="/" className="brand">
-      <img src="/logo_transparent.png" alt="Logótipo Paraíso do Saber"/>
-      <span><b>PARAÍSO DO SABER</b><small>PAINEL ADMINISTRATIVO</small></span>
-    </a>
+  <aside className={`admin-side ${mobileNavOpen?'is-mobile-open':''}`}>
+    <div className="adm-side-top">
+      <a href="/" className="brand">
+        <img src="/logo_transparent.png" alt="Logótipo Paraíso do Saber"/>
+        <span><b>PARAÍSO DO SABER</b><small>PAINEL ADMINISTRATIVO</small></span>
+      </a>
+      <button
+        type="button"
+        className="adm-mobile-menu-btn"
+        onClick={()=>setMobileNavOpen(!mobileNavOpen)}
+        aria-expanded={mobileNavOpen}
+        aria-label={mobileNavOpen?'Fechar menu administrativo':'Abrir menu administrativo'}
+      >
+        <span aria-hidden="true">{mobileNavOpen?'✕':'☰'}</span>
+        <small>{mobileNavOpen?'Fechar':'Menu'}</small>
+      </button>
+    </div>
+    <div className="adm-mobile-tabs-strip" role="navigation" aria-label="Navegação rápida">
+      {visibleNav.map(([key,icon,text])=>(
+        <button key={key} type="button" className={tab===key?'active':''} onClick={()=>selectTab(key)}>
+          <span>{icon}</span>{text}
+        </button>
+      ))}
+    </div>
     <small className="side-label">GESTÃO DO PORTAL</small>
-    {navigation.filter(([key])=>allowedTabs.includes(key)).map(([key,icon,text])=>(
-      <button key={key} className={tab===key?'active':''} onClick={()=>setTab(key)}>
+    {visibleNav.map(([key,icon,text])=>(
+      <button key={key} className={tab===key?'active':''} onClick={()=>selectTab(key)}>
         <span>{icon}</span>{text}
       </button>
     ))}
@@ -446,7 +471,7 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
           <small>{formatValue(user.role)}</small>
         </div>
       </div>
-      <button onClick={()=>{void request('/auth/logout',{method:'POST'}).catch(()=>{});localStorage.removeItem('ps_token');setUser(null);setToken('')}}>Terminar sessão</button>
+      <button onClick={()=>{void request('/auth/logout',{method:'POST'}).catch(()=>{});localStorage.removeItem('ps_token');setUser(null);setToken('');setMobileNavOpen(false)}}>Terminar sessão</button>
     </div>
   </aside>
   <main className="admin-content">

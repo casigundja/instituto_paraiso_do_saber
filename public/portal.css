@@ -2088,17 +2088,50 @@ body.theme-dark .kl-auth-card-wrapper .kl-error-banner {
 }
 
 @media (max-width: 900px) {
-  .kl-auth-top-controls {
-    top: -46px;
-    right: 18px;
+  .kl-auth-page {
+    padding-top: 36px;
+    justify-content: flex-end;
+    overflow-y: auto;
   }
-  .kl-auth-theme-btn {
-    background: rgba(7, 42, 77, 0.88);
-    border-color: rgba(255, 255, 255, 0.22);
-    color: #ffffff;
+  .kl-auth-top-controls {
+    position: static;
+    width: 100%;
+    max-width: 370px;
+    margin: 0 auto 18px;
+    justify-content: space-between;
+  }
+  .kl-auth-card-wrapper {
+    width: 100%;
+    min-height: auto;
+    border-radius: 26px 26px 0 0;
+    padding: 22px 20px calc(24px + env(safe-area-inset-bottom));
+  }
+  .kl-auth-brand-header {
+    margin-bottom: 18px;
+  }
+  .kl-auth-heading {
+    margin-bottom: 18px;
+  }
+  .kl-auth-heading h2 {
+    font-size: 21px;
+  }
+  .kl-auth-form {
+    gap: 14px;
+  }
+  .kl-input {
+    height: 46px;
+    font-size: 16px;
+  }
+  .kl-submit-btn {
+    height: 48px;
+    font-size: 14.5px;
+  }
+  .kl-auth-options {
+    flex-wrap: wrap;
+    gap: 8px;
   }
   body.theme-dark .kl-auth-card-wrapper {
-    background: rgba(11, 23, 38, 0.96);
+    background: rgba(11, 23, 38, 0.98);
     border-top: 1px solid #243b55;
   }
 }
@@ -3567,14 +3600,151 @@ body .admin-shell .edit-record > div:first-of-type {
   border-top: 1px solid var(--adm-border);
 }
 
-/* Responsividade do Painel Administrativo */
+/* Elementos exclusivos de navegação mobile (ocultos no Desktop) */
+.adm-side-top {
+  display: block;
+}
+
+.adm-mobile-menu-btn,
+.adm-mobile-tabs-strip {
+  display: none;
+}
+
+/* Responsividade do Painel Administrativo (Tablet e Telemóvel / Celular) */
 @media (max-width: 1100px) {
   body .admin-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    overflow-x: hidden;
   }
   body .admin-side {
-    position: relative;
-    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    height: auto !important;
+    padding: 12px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--adm-side-border);
+    box-shadow: 0 6px 20px rgba(4, 12, 24, 0.22);
+  }
+  .adm-side-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+  body .admin-side .brand {
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    flex: 1;
+    min-width: 0;
+  }
+  body .admin-side .brand img {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  body .admin-side .brand span b {
+    font-size: 12.5px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body .admin-side .brand span small {
+    font-size: 9px !important;
+  }
+  .adm-mobile-menu-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 42px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .adm-mobile-menu-btn small {
+    font-size: 12px;
+    font-weight: 750;
+  }
+  body .admin-side.is-mobile-open .adm-mobile-menu-btn {
+    background: #ffd35a;
+    border-color: #ffd35a;
+    color: #061529;
+  }
+  .adm-mobile-tabs-strip {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 2px 2px 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .adm-mobile-tabs-strip::-webkit-scrollbar {
+    display: none;
+  }
+  .adm-mobile-tabs-strip button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(241, 245, 249, 0.92);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .adm-mobile-tabs-strip button span {
+    color: #ffd35a;
+    font-size: 12px;
+  }
+  .adm-mobile-tabs-strip button.active {
+    background: linear-gradient(135deg, #ffd35a 0%, #f4b400 100%);
+    border-color: #ffd35a;
+    color: #061529;
+    font-weight: 850;
+  }
+  .adm-mobile-tabs-strip button.active span {
+    color: #061529;
+  }
+  /* Oculta a lista vertical completa por predefinição no telemóvel; abre ao tocar em Menu */
+  body .admin-side > .side-label,
+  body .admin-side > button,
+  body .admin-side > .admin-user {
+    display: none !important;
+  }
+  body .admin-side.is-mobile-open {
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+  body .admin-side.is-mobile-open > .side-label {
+    display: block !important;
+    padding-top: 6px;
+  }
+  body .admin-side.is-mobile-open > button {
+    display: flex !important;
+    width: 100%;
+    min-height: 42px;
+    font-size: 13.5px !important;
+    padding: 10px 14px !important;
+  }
+  body .admin-side.is-mobile-open > .admin-user {
+    display: grid !important;
+    margin-top: 8px;
   }
   body .admin-shell .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3589,22 +3759,139 @@ body .admin-shell .edit-record > div:first-of-type {
 
 @media (max-width: 700px) {
   body .admin-content {
-    padding: 16px 14px 36px;
+    padding: 14px 12px 36px !important;
+    gap: 16px;
   }
   body .admin-head {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 16px;
+    align-items: stretch;
+    padding: 15px 16px !important;
+    gap: 12px;
+  }
+  body .admin-head h1 {
+    font-size: 21px !important;
+  }
+  .adm-head-actions {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  body .admin-head a {
+    padding: 7px 12px;
+    font-size: 12px;
   }
   body .admin-box {
-    padding: 16px;
+    padding: 16px 14px !important;
+    border-radius: 12px;
   }
-  body .admin-shell .stats,
+  body .admin-shell .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px;
+  }
+  body .admin-shell .stats .adm-stat-card {
+    padding: 14px 14px 12px !important;
+    gap: 6px;
+  }
+  body .admin-shell .stats .adm-stat-card b {
+    font-size: 26px !important;
+  }
+  .adm-stat-top small {
+    font-size: 10px;
+  }
+  .adm-stat-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
   .adm-overview-grid,
   body .admin-shell .section-admin,
   body .admin-shell .settings-form,
   body .admin-shell .record-form,
   body .admin-shell .edit-record > div:first-of-type {
+    grid-template-columns: 1fr !important;
+  }
+  body .admin-box.adm-welcome-box h2 {
+    font-size: 20px !important;
+  }
+  body .admin-box.adm-welcome-box p {
+    font-size: 13.5px !important;
+  }
+  .adm-quick-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .adm-quick-buttons button {
+    width: 100%;
+  }
+  body .admin-box .box-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .export-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .export-actions button {
+    width: 100%;
+    font-size: 12px !important;
+    padding: 9px 10px !important;
+  }
+  body .admin-shell input:not([type="checkbox"]):not([type="file"]),
+  body .admin-shell select,
+  body .admin-shell textarea {
+    font-size: 16px !important;
+  }
+  .adm-form-submit-row .btn,
+  .adm-edit-actions button,
+  body .admin-shell .media-upload {
+    width: 100%;
+    justify-content: center;
+  }
+  .adm-edit-actions {
+    flex-direction: column;
+  }
+  .adm-section-card-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .adm-section-card-foot label {
+    max-width: 100%;
+  }
+  body .admin-shell .media-tools {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .media-search-wrap,
+  body .admin-shell .media-tools > select {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  body .admin-shell .media-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+  body .admin-shell .table-wrap {
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -2px;
+  }
+  body .admin-shell th,
+  body .admin-shell td {
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 400px) {
+  body .admin-shell .stats {
+    grid-template-columns: 1fr !important;
+  }
+  .export-actions {
     grid-template-columns: 1fr;
   }
 }
