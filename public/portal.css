@@ -1101,6 +1101,10 @@ body.theme-dark .modal-sms-notification p {
 .ps-banner-photo.is-active {
   opacity: 1 !important;
 }
+.ps-banner.is-facade-banner .ps-banner-photo {
+  transform: scale(1) !important;
+  object-position: right center !important;
+}
 .ps-banner-shade {
   position: absolute !important;
   inset: 0 !important;
@@ -1109,6 +1113,18 @@ body.theme-dark .modal-sms-notification p {
   z-index: 1 !important;
   background: linear-gradient(90deg, #04254d 0%, #04254df2 36%, #04254dc4 65%, #04254d75 88%, #04254d99 100%),
               linear-gradient(0deg, rgba(3, 32, 66, 0.65), transparent 50%) !important;
+}
+.ps-banner.is-facade-banner .ps-banner-shade {
+  background: linear-gradient(90deg, #04254d 0%, #04254dfa 24%, rgba(4, 37, 77, 0.72) 31%, rgba(4, 37, 77, 0.14) 37%, rgba(4, 37, 77, 0) 42%),
+              linear-gradient(0deg, rgba(3, 32, 66, 0.32) 0%, transparent 24%) !important;
+}
+@media (max-width: 850px) {
+  .ps-banner.is-facade-banner .ps-banner-photo {
+    object-position: 76% center !important;
+  }
+  .ps-banner.is-facade-banner .ps-banner-shade {
+    background: linear-gradient(90deg, rgba(4, 37, 77, 0.92) 0%, rgba(4, 37, 77, 0.68) 48%, rgba(4, 37, 77, 0.25) 100%) !important;
+  }
 }
 .ps-banner-copy {
   position: relative !important;
