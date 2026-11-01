@@ -223,7 +223,6 @@ export function Listing({type}:{type:Kind}){
    {!(type==='media'&&filter==='Vídeos')&&<>
     <div className="in-gallery-results-bar">
       <div className="in-result-count"><strong>{filtered.length}</strong> {type==='courses'?(filtered.length===1?'formação disponível':'formações disponíveis'):(filtered.length===1?'registo disponível':'registos disponíveis')}{q&&` para “${q}”`}{filter!=='Todos'&&filter!=='Imagens'&&` em ${filter}`}</div>
-      {type==='courses'&&<span className="in-courses-status-badge"><span className="in-status-dot" aria-hidden="true"/>Candidaturas e inscrições abertas para o ano letivo</span>}
       {type==='media'&&<span className="in-gallery-click-hint">🔍 Clique em qualquer fotografia para ampliar em ecrã inteiro</span>}
     </div>
     <div className={`in-catalogue ${type==='media'?'in-gallery':''}`}>
