@@ -266,24 +266,5 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
-
-        foreach ([
-            ['filename' => 'banner-fachada.jpg', 'originalName' => 'Banner Fachada Oficial — Instituto Paraíso do Saber', 'url' => '/banner-fachada.jpg', 'category' => 'Institucional'],
-            ['filename' => 'banner-fachada-arte.jpg', 'originalName' => 'Arte Fachada 16:9 — Instituto Paraíso do Saber', 'url' => '/banner-fachada-arte.jpg', 'category' => 'Institucional'],
-        ] as $bm) {
-            $fp = public_path($bm['filename']);
-            DB::table('portal_media')->updateOrInsert(
-                ['filename' => $bm['filename']],
-                [
-                    'id' => DB::table('portal_media')->where('filename', $bm['filename'])->value('id') ?: (string) Str::uuid(),
-                    'originalName' => $bm['originalName'],
-                    'mimeType' => 'image/jpeg',
-                    'url' => $bm['url'],
-                    'size' => file_exists($fp) ? filesize($fp) : 450000,
-                    'category' => $bm['category'],
-                    'createdAt' => now(),
-                ]
-            );
-        }
     }
 }
