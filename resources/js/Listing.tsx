@@ -171,7 +171,7 @@ export function PageBanner({eyebrow,title,description,image='',children}:{eyebro
 }
 export function CallToAction(){return <section className="in-cta"><div><span className="ps-eyebrow">ESTAMOS AQUI PARA AJUDAR</span><h2>Vamos conversar sobre o seu futuro?</h2><p>Conheça os cursos e esclareça as suas dúvidas com a nossa equipa.</p></div><Link className="ps-button ps-yellow" href="/matriculas">Quero saber mais <span>↗</span></Link></section>}
 export function EmptyState({error=false,search=false,retry}:{error?:boolean,search?:boolean,retry?:()=>void}){return <div className="in-empty"><span className="in-empty-icon" aria-hidden="true">{error?'!':search?'⌕':'▤'}</span><h2>{error?'Não foi possível carregar o conteúdo':search?'Não encontrámos resultados':'Novidades a caminho'}</h2><p>{error?'Verifique a ligação e tente novamente.':search?'Experimente outro termo ou remova os filtros para ver mais conteúdos.':'Os conteúdos publicados pelo Instituto aparecerão aqui. Entretanto, conheça os nossos cursos ou fale com a secretaria.'}</p>{retry&&<button className="ps-button ps-blue" onClick={retry}>{error?'Tentar novamente':'Limpar filtros'} <span>↗</span></button>}{!error&&!search&&<Link href="/cursos" className="ps-button ps-blue">Conheça os cursos <span>↗</span></Link>}</div>}
-const info={courses:{title:'Formação que transforma.',label:'Os nossos cursos',intro:'Encontre o seu caminho na área da saúde. Conheça as formações do Paraíso do Saber e dê o próximo passo.',image:''},events:{title:'Encontros que aproximam.',label:'Agenda do Instituto',intro:'Acompanhe os encontros, atividades e iniciativas que fazem parte da vida do Instituto.',image:''},news:{title:'O Instituto em notícia.',label:'Notícias e comunicados',intro:'Informação, conhecimento e novidades para a nossa comunidade educativa.',image:''},media:{title:'Conheça. Veja. Inspire-se.',label:'Galeria multimédia',intro:'Explore os materiais de apresentação do Paraíso do Saber, as nossas fotografias e os vídeos institucionais.',image:''}};
+const info={courses:{title:'Formação que transforma.',label:'Os nossos cursos',intro:'Encontre o seu caminho na área da saúde. Conheça as formações do Paraíso do Saber e dê o próximo passo.',image:'/banner-consulta-laboratorio.jpg'},events:{title:'Encontros que aproximam.',label:'Agenda do Instituto',intro:'Acompanhe os encontros, atividades e iniciativas que fazem parte da vida do Instituto.',image:''},news:{title:'O Instituto em notícia.',label:'Notícias e comunicados',intro:'Informação, conhecimento e novidades para a nossa comunidade educativa.',image:''},media:{title:'Conheça. Veja. Inspire-se.',label:'Galeria multimédia',intro:'Explore os materiais de apresentação do Paraíso do Saber, as nossas fotografias e os vídeos institucionais.',image:''}};
 const materials=[{id:'institution-1',originalName:'Formação na área da saúde',url:'/banner1.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'},{id:'institution-2',originalName:'Conhecimento ao serviço do cuidado',url:'/banner2.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'},{id:'institution-3',originalName:'Aprender para transformar vidas',url:'/banner3.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'}];
 export function Listing({type}:{type:Kind}){
  const defaultStep=type==='media'?12:9;
@@ -222,7 +222,8 @@ export function Listing({type}:{type:Kind}){
   {loading?<div className="in-skeleton-grid" role="status" aria-label="A carregar conteúdos">{[1,2,3].map(i=><div key={i}/>)}</div>:error?<EmptyState error retry={()=>setRetry(n=>n+1)}/>:<>
    {!(type==='media'&&filter==='Vídeos')&&<>
     <div className="in-gallery-results-bar">
-      <div className="in-result-count"><strong>{filtered.length}</strong> {filtered.length===1?'registo disponível':'registos disponíveis'}{q&&` para “${q}”`}{filter!=='Todos'&&filter!=='Imagens'&&` em ${filter}`}</div>
+      <div className="in-result-count"><strong>{filtered.length}</strong> {type==='courses'?(filtered.length===1?'formação disponível':'formações disponíveis'):(filtered.length===1?'registo disponível':'registos disponíveis')}{q&&` para “${q}”`}{filter!=='Todos'&&filter!=='Imagens'&&` em ${filter}`}</div>
+      {type==='courses'&&<span className="in-courses-status-badge"><span className="in-status-dot" aria-hidden="true"/>Candidaturas e inscrições abertas para o ano letivo</span>}
       {type==='media'&&<span className="in-gallery-click-hint">🔍 Clique em qualquer fotografia para ampliar em ecrã inteiro</span>}
     </div>
     <div className={`in-catalogue ${type==='media'?'in-gallery':''}`}>
@@ -245,7 +246,22 @@ export function Listing({type}:{type:Kind}){
            </div>
          </div>
        </button>
-     ):<article key={r.id} className="in-catalogue-card"><Link href={`/${paths[type]}/${r.slug}`} className="in-catalogue-image"><img src={asset(r.image||meta.image)} alt={r.name||r.title} loading="lazy"/><span>{r.area||r.category||(type==='events'?'AGENDA':'FORMAÇÃO EM SAÚDE')}</span></Link><div className="in-card-body">{type==='events'&&<time>{dateLabel(r.startsAt)}</time>}{type==='news'&&r.publishAt&&<time>{dateLabel(r.publishAt)}</time>}<h3><Link href={`/${paths[type]}/${r.slug}`}>{r.name||r.title}</Link></h3><p>{r.description||r.summary}</p>{type==='courses'&&<div className="in-card-meta"><span>✚ Área da saúde</span><span>{r.modality||'Consulte as condições'}</span></div>}<Link className="in-card-link" href={`/${paths[type]}/${r.slug}`}>{type==='courses'?'Conheça esta formação':type==='events'?'Ver detalhes do evento':'Ler publicação'} <span>↗</span></Link></div></article>)}
+     ):<article key={r.id} className="in-catalogue-card"><Link href={`/${paths[type]}/${r.slug}`} className="in-catalogue-image"><img src={asset(r.image||meta.image)} alt={r.name||r.title} loading="lazy"/><span className="in-catalogue-badge">{r.area||r.category||(type==='events'?'AGENDA':'FORMAÇÃO EM SAÚDE')}</span></Link><div className="in-card-body">{type==='events'&&<time>{dateLabel(r.startsAt)}</time>}{type==='news'&&r.publishAt&&<time>{dateLabel(r.publishAt)}</time>}<h3><Link href={`/${paths[type]}/${r.slug}`}>{r.name||r.title}</Link></h3><p>{r.description||r.summary}</p>{type==='courses'&&<div className="in-card-pills"><span className="in-pill in-pill-accent">✚ Área da saúde</span><span className="in-pill">{r.modality||'Presencial'}</span></div>}<Link className="in-card-action" href={`/${paths[type]}/${r.slug}`}><span>{type==='courses'?'Conheça esta formação':type==='events'?'Ver detalhes do evento':'Ler publicação'}</span><b aria-hidden="true">↗</b></Link></div></article>)}
+     {type==='courses'&&!q&&filter==='Todos'&&(
+       <article className="in-catalogue-card in-catalogue-cta-card">
+         <div className="in-cta-card-content">
+           <span className="in-cta-card-badge">✚ ORIENTAÇÃO VOCACIONAL</span>
+           <h3>Dúvidas sobre qual curso escolher?</h3>
+           <p>A nossa equipa pedagógica ajuda-o a identificar a formação que melhor se adapta à sua vocação e objetivos profissionais na saúde.</p>
+           <div className="in-cta-card-highlights">
+             <span><small>✓</small> Atendimento pedagógico próximo</span>
+             <span><small>✓</small> Esclarecimento de saídas profissionais</span>
+             <span><small>✓</small> Apoio direto na candidatura</span>
+           </div>
+           <Link href="/matriculas" className="ps-button ps-yellow in-cta-btn">Falar com a secretaria <span>↗</span></Link>
+         </div>
+       </article>
+     )}
     </div>{!filtered.length&&<EmptyState search={Boolean(q)||filter!=='Todos'} retry={q||filter!=='Todos'?clear:undefined}/>} {filtered.length>limit&&<button className="ps-button ps-blue in-load-more" onClick={()=>setLimit(n=>n+defaultStep)}>Mostrar mais conteúdos ({filtered.length-limit} restantes) ↓</button>}</>}
    {type==='media'&&(filter==='Todos'||filter==='Vídeos')&&(
      <section className="in-videos">
