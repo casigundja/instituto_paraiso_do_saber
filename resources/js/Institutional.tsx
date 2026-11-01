@@ -103,7 +103,44 @@ export default function Institutional({page}:{page:'instituto'|'matriculas'|'con
  const activeVideoObj = instituteVideos.find(v => v.file === selectedVideo) || instituteVideos[0];
  return <PublicLayout>{page==='instituto'?<>
  <PageBanner eyebrow="Conheça o Instituto" title="Educar para cuidar. Formar para a vida." description="Conhecimento, responsabilidade e atenção às pessoas. Conheça o Instituto Técnico Privado de Saúde Paraíso do Saber." image="/banner-instituto-estudantes.jpg"><Link className="ps-button ps-yellow" href="/cursos">Explore as nossas formações ↗</Link></PageBanner>
- <section className="in-about-story"><div><span className="ps-eyebrow">A NOSSA IDENTIDADE</span><h2>O conhecimento abre caminhos.<br/>O cuidado dá-lhes sentido.</h2><p className="in-lead">O Paraíso do Saber é uma instituição dedicada à formação na área da saúde.</p><p>A nossa apresentação institucional parte de uma convicção: aprender é preparar-se para contribuir. Valorizamos o conhecimento, a responsabilidade e o respeito pelas pessoas no percurso de formação.</p><p>Conheça a oferta de cursos e converse com a nossa equipa para compreender as possibilidades de formação e os próximos passos.</p></div><figure><img src="/banner3.jpeg" alt="Imagem de apresentação da formação na saúde"/><figcaption>Instituto Paraíso do Saber · Formação na área da saúde</figcaption></figure></section>
+ <section className="in-facility-card" aria-label="Instalações do Instituto Paraíso do Saber">
+    <div className="in-facility-info">
+      <div className="in-facility-brand">
+        <h3>Instituto Paraíso do Saber</h3>
+        <span>Campus Central · Luanda</span>
+      </div>
+      <div className="in-facility-address">
+        <span className="in-facility-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </span>
+        <div>
+          <strong>Bairro Paraíso</strong><br/>
+          Depois da Pracinha Nova, em frente à Casa do Partido do MPLA.<br/>
+          Cacuaco, Luanda · Angola
+        </div>
+      </div>
+      <a href="#localizacao" className="in-facility-map-link">Ver no Mapa ↗</a>
+      <div className="in-facility-contacts">
+        <div>Telefone: <a href={"tel:" + String(s.phone1).replace(/\s/g, "")}>{s.phone1}</a></div>
+        <div>WhatsApp: <a href={whatsapp} target="_blank" rel="noreferrer">{s.phone2 || s.phone1}</a></div>
+      </div>
+    </div>
+    <div className="in-facility-visual">
+      <div className="in-facility-photos">
+        <div className="in-facility-photo-box">
+          <img src="/banner-campus-galerias.jpg" alt="Galerias superiores e corredores do Instituto" loading="lazy" />
+          <span className="in-facility-tag">Galerias Académicas</span>
+        </div>
+        <div className="in-facility-photo-box">
+          <img src="/banner-campus-atrio.jpg" alt="Átrio central e salas de aula" loading="lazy" />
+          <span className="in-facility-tag">Átrio e Salas de Aula</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section className="in-about-story"><div><span className="ps-eyebrow">A NOSSA IDENTIDADE</span><h2>O conhecimento abre caminhos.<br/>O cuidado dá-lhes sentido.</h2><p className="in-lead">O Paraíso do Saber é uma instituição dedicada à formação na área da saúde.</p><p>A nossa apresentação institucional parte de uma convicção: aprender é preparar-se para contribuir. Valorizamos o conhecimento, a responsabilidade e o respeito pelas pessoas no percurso de formação.</p><p>Conheça a oferta de cursos e converse com a nossa equipa para compreender as possibilidades de formação e os próximos passos.</p></div><figure><img src="/banner-campus-atrio.jpg" alt="Instalações do Instituto Paraíso do Saber" loading="lazy" /><figcaption>Instituto Paraíso do Saber · Infraestrutura e salas de aula</figcaption></figure></section>
  <section className="in-values"><div className="ps-section-heading"><div><span className="ps-eyebrow">O QUE NOS ORIENTA</span><h2>Uma formação com propósito.</h2></div></div><div className="in-values-grid">{[['01','Conhecimento','Aprender, compreender e desenvolver uma base de conhecimentos na área da saúde.'],['02','Responsabilidade','Valorizar uma postura atenta, consciente e comprometida com a formação.'],['03','Humanização','Reconhecer a importância do respeito e do cuidado na relação com as pessoas.']].map(([n,title,text])=><article key={n}><span>{n}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>
  <section className="in-cinema-showcase">
    <div className="in-cinema-stage">
