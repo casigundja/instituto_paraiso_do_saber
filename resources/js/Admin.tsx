@@ -465,7 +465,7 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
       <img src="/logo_transparent.png" alt="Logótipo Paraíso do Saber"/>
       <span><b>PARAÍSO DO SABER</b><small>PAINEL ADMINISTRATIVO</small></span>
     </a>
-    <small className="side-label">GESTÃO DO PORTAL ({currentRole.label.toUpperCase()})</small>
+    <small className="side-label">GESTÃO DO PORTAL</small>
     {navigation.filter(([key])=>allowedTabs.includes(key)).map(([key,icon,text])=>(
       <button key={key} className={tab===key?'active':''} onClick={()=>setTab(key)}>
         <span>{icon}</span>{text}
@@ -485,7 +485,7 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
   <main className="admin-content">
     <header className="admin-head">
       <div>
-        <small>PORTAL DO INSTITUTO · PERFIL: {currentRole.label.toUpperCase()}</small>
+        <small>PORTAL DO INSTITUTO · ÁREA DE GESTÃO</small>
         <h1>{tab==='overview'?'Visão geral':tab==='home'?'Página inicial':tab==='settings'?'Definições gerais':schema?.title||label(tab)}</h1>
       </div>
       <div className="adm-head-actions">
@@ -505,7 +505,6 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
             </span>
           </button>
         )}
-        <span className="adm-role-chip" title={currentRole.description}>{formatValue(user.role)} · {currentRole.badge}</span>
         <a href="/">Ver sítio público ↗</a>
       </div>
     </header>
@@ -524,7 +523,7 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
     </div>
     <div className="adm-overview-grid">
       <section className="admin-box adm-welcome-box">
-        <span className="adm-kicker">{currentRole.label.toUpperCase()} · {currentRole.badge.toUpperCase()}</span>
+        <span className="adm-kicker">CENTRO DE CONTROLO INSTITUCIONAL</span>
         <h2>Bem-vindo(a), {user.name}</h2>
         <p>{currentRole.description}</p>
         <div className="adm-quick-buttons">
@@ -539,7 +538,7 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
         </div>
       </section>
       <section className="admin-box adm-shortcuts-box">
-        <h2>Atalhos rápidos do seu perfil</h2>
+        <h2>Atalhos rápidos</h2>
         <div className="adm-shortcut-list">
           {visibleShortcuts.map(([key,icon,title,desc])=>(
             <button key={key} type="button" onClick={()=>setTab(key)}>
@@ -550,98 +549,12 @@ export default function Admin({theme='light',onToggleTheme}:{theme?:'light'|'dar
         </div>
       </section>
     </div>
-    <RolePermissionsMatrix activeRole={roleKey} onSelectTab={(t)=>allowedTabs.includes(t)&&setTab(t)}/>
   </>}
   {tab==='settings'&&allowedTabs.includes('settings')&&<form className="admin-box settings-form" onSubmit={saveSettings}><div className="adm-form-section-header"><h2>Informações gerais do Instituto</h2><p>Estes dados são apresentados no cabeçalho, rodapé e páginas de contacto do sítio público.</p></div>{Object.entries({institutionName:'Nome da Instituição',logo:'Logótipo (caminho ou URL)',favicon:'Ícone do sítio (Favicon)',phone1:'Telefone principal',phone2:'Telefone alternativo',whatsapp:'WhatsApp (apenas algarismos)',email:'Correio eletrónico (E-mail)',address:'Morada / Localização',facebook:'Página de Facebook',instagram:'Conta de Instagram',tiktok:'Conta de TikTok',youtube:'Canal de YouTube',officeHours:'Horário de atendimento da secretaria',footer:'Texto institucional do rodapé',metaTitle:'Título SEO predefinido',metaDescription:'Descrição SEO predefinida'}).map(([key,text])=><label key={key} className={['address','footer','metaDescription'].includes(key)?'adm-field-wide':''}>{text}<input value={settings[key]||''} onChange={e=>setSettings({...settings,[key]:e.target.value})}/></label>)}<StaticSeoSettings settings={settings} onChange={(key,value)=>setSettings({...settings,[key]:value})}/><button className="btn">Guardar definições</button></form>}
   {tab==='home'&&allowedTabs.includes('home')&&<div className="section-admin">{homeSections.map(s=><article className="admin-box section-edit" key={s.id}><div className="adm-section-card-head"><span className="adm-section-key">{s.key}</span><label className="check"><input type="checkbox" checked={s.enabled} onChange={e=>setHomeSections(homeSections.map(x=>x.id===s.id?{...x,enabled:e.target.checked}:x))}/> Secção visível na página inicial</label></div><label>Título da secção<input value={s.title||''} placeholder="Título da secção" onChange={e=>setHomeSections(homeSections.map(x=>x.id===s.id?{...x,title:e.target.value}:x))}/></label><label>Descrição complementar<textarea value={s.description||''} placeholder="Descrição da secção" onChange={e=>setHomeSections(homeSections.map(x=>x.id===s.id?{...x,description:e.target.value}:x))}/></label><div className="adm-section-card-foot"><label>Ordem de exibição<input type="number" value={s.order} onChange={e=>setHomeSections(homeSections.map(x=>x.id===s.id?{...x,order:+e.target.value}:x))}/></label><button className="btn" onClick={()=>saveSection(s)}>Guardar secção</button></div></article>)}</div>}
   {tab==='media'&&allowedTabs.includes('media')&&<section className="admin-box adm-upload-banner"><div><span className="adm-kicker">GESTÃO DE FICHEIROS E GALERIA</span><h2>Biblioteca Multimédia</h2><p>Carregue fotografias, vídeos e documentos institucionais (máximo de 100 MB por ficheiro).</p></div><label className="media-upload"><span>＋</span> Selecionar ficheiros do computador<input type="file" multiple accept="image/*,video/*,application/pdf" onChange={upload}/></label></section>}
   {schema&&allowedTabs.includes(tab)&&<>{tab!=='media'&&<section className="admin-box"><div className="box-head"><div><h2>{schema.title}</h2><p>{tab==='leads'?'Acompanhe os pedidos de informação e manifestações de interesse em matrículas.':tab==='audit'?'Histórico de ações realizadas pelos utilizadores no painel administrativo.':tab==='users'&&!canCreateInTab?'Consulta de contas de utilizadores registadas no sistema (perfil sem opção de realizar novo cadastro).':'Crie e atualize os conteúdos publicados no portal institucional.'}</p></div>{tab==='leads'&&<div className="export-actions"><button className="btn" onClick={exportXlsx}>Transferir Excel (.xlsx) ↓</button><button className="adm-btn-secondary" onClick={exportCsv}>Transferir CSV ↓</button></div>}{tab==='users'&&!canCreateInTab&&<span className="adm-readonly-pill">🔒 Apenas visualização (Sem opção de cadastro)</span>}</div>{tab!=='audit'&&canCreateInTab&&<form className="record-form" onSubmit={create}>{schema.fields.map(k=><label key={k} className={isWideField(k)?'adm-field-wide':''}>{label(k)}{isWideField(k)?<textarea name={k} placeholder={label(k)}/>:['publication','role','status'].includes(k)?<select name={k}><option value="">Predefinido</option>{getEnumOptions(k).map(v=><option key={v} value={v}>{formatValue(v)}</option>)}</select>:['featured','active'].includes(k)?<select name={k}><option value="false">Não</option><option value="true">Sim</option></select>:<input name={k} type={k==='password'?'password':['startsAt','endsAt','publishAt'].includes(k)?'datetime-local':k==='order'?'number':'text'} placeholder={label(k)}/>}</label>)}<div className="adm-form-submit-row"><button className="btn">Adicionar registo ↗</button></div></form>}</section>}{tab==='media'?<MediaLibrary rows={rows} onUpdate={update} onRemove={remove} onNotify={notify}/>:<Records rows={rows} fields={schema.fields} onUpdate={update} onRemove={remove} tab={tab} canEdit={canEditInTab} canDelete={canDeleteInTab}/>}</>}
   {loading&&<div className="busy">A carregar dados…</div>}</main></div>;
-}
-
-function RolePermissionsMatrix({activeRole,onSelectTab}:{activeRole:string;onSelectTab:(tab:string)=>void}){
-  const rolesOrder = ['ADMIN','EDITOR','ATTENDANCE'];
-  const matrixRows: {key:string;label:string;admin:string;editor:string;attendance:string}[] = [
-    { key: 'overview', label: 'Visão geral', admin: 'Acesso total', editor: 'Visualização e atalhos', attendance: 'Visualização e atalhos' },
-    { key: 'courses', label: 'Cursos', admin: 'Acesso total (Criar / Editar / Eliminar)', editor: 'Sem acesso', attendance: 'Acesso e gestão de cursos' },
-    { key: 'events', label: 'Eventos', admin: 'Acesso total (Criar / Editar / Eliminar)', editor: 'Acesso total (Criar / Editar / Eliminar)', attendance: 'Sem acesso' },
-    { key: 'campaigns', label: 'Publicidade', admin: 'Acesso total (Criar / Editar / Eliminar)', editor: 'Acesso total (Criar / Editar / Eliminar)', attendance: 'Sem acesso' },
-    { key: 'news', label: 'Notícias', admin: 'Acesso total (Criar / Editar / Eliminar)', editor: 'Acesso total (Criar / Editar / Eliminar)', attendance: 'Sem acesso' },
-    { key: 'media', label: 'Biblioteca multimédia', admin: 'Acesso total (Carregar / Editar / Eliminar)', editor: 'Acesso total (Carregar / Editar / Eliminar)', attendance: 'Sem acesso' },
-    { key: 'leads', label: 'Pedidos e Candidatos', admin: 'Acesso total + Exportação', editor: 'Sem acesso', attendance: 'Acesso, acompanhamento e exportação' },
-    { key: 'users', label: 'Utilizadores', admin: 'Acesso total (Com opção de cadastro)', editor: 'Sem acesso', attendance: 'Apenas visualização (Sem opção de cadastro)' },
-    { key: 'home', label: 'Página inicial', admin: 'Acesso total (Secções da capa)', editor: 'Sem acesso', attendance: 'Acesso e gestão (Secções da capa)' },
-    { key: 'settings', label: 'Definições gerais', admin: 'Acesso total (Institucional e SEO)', editor: 'Sem acesso', attendance: 'Sem acesso' },
-    { key: 'audit', label: 'Auditoria', admin: 'Visualização completa', editor: 'Visualização completa', attendance: 'Visualização completa' },
-  ];
-  return (
-    <section className="admin-box adm-permissions-box">
-      <div className="box-head">
-        <div>
-          <span className="adm-kicker">CONTROLO DE ACESSOS E PERFILAMENTO</span>
-          <h2>Perfis de Utilizador e Permissões de Acesso</h2>
-          <p>Separação de módulos, opções de visualização e permissões operacionais atribuídas a cada perfil no painel administrativo.</p>
-        </div>
-      </div>
-      <div className="adm-roles-cards">
-        {rolesOrder.map(rKey => {
-          const r = ROLE_CONFIG[rKey];
-          const isCurrent = rKey === activeRole;
-          return (
-            <article key={rKey} className={`adm-role-card ${isCurrent ? 'is-current-role' : ''}`}>
-              <div className="adm-role-card-top">
-                <div>
-                  <span className="adm-role-badge">{r.badge}</span>
-                  <h3>{r.label}</h3>
-                </div>
-                {isCurrent && <span className="adm-role-active-tag">Perfil ativo</span>}
-              </div>
-              <p className="adm-role-desc">{r.description}</p>
-              <div className="adm-role-tabs-list">
-                <small>MÓDULOS DISPONÍVEIS NO MENU ({r.tabs.length})</small>
-                <div className="adm-role-pills">
-                  {navigation.filter(([k]) => r.tabs.includes(k)).map(([k, icon, txt]) => (
-                    <button
-                      key={k}
-                      type="button"
-                      className="adm-role-tab-pill"
-                      onClick={() => onSelectTab(k)}
-                      disabled={!ROLE_CONFIG[activeRole].tabs.includes(k)}
-                    >
-                      <span>{icon}</span> {txt}
-                      {rKey === 'ATTENDANCE' && k === 'users' ? ' (Sem cadastro)' : ''}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-      <div className="table-wrap adm-matrix-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Módulo / Opção</th>
-              <th>Administrador</th>
-              <th>Editor de Conteúdos</th>
-              <th>Atendimento / Secretaria</th>
-            </tr>
-          </thead>
-          <tbody>
-            {matrixRows.map(row => (
-              <tr key={row.key}>
-                <td><strong>{row.label}</strong></td>
-                <td><span className="adm-perm-chip adm-perm-full">{row.admin}</span></td>
-                <td><span className={`adm-perm-chip ${row.editor === 'Sem acesso' ? 'adm-perm-none' : row.key === 'audit' || row.key === 'overview' ? 'adm-perm-read' : 'adm-perm-full'}`}>{row.editor}</span></td>
-                <td><span className={`adm-perm-chip ${row.attendance === 'Sem acesso' ? 'adm-perm-none' : row.key === 'users' || row.key === 'audit' || row.key === 'overview' ? 'adm-perm-read' : 'adm-perm-full'}`}>{row.attendance}</span></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
 }
 
 function Records({rows,fields,onUpdate,onRemove,tab,canEdit=true,canDelete=true}:{rows:any[],fields:string[],onUpdate:(id:string,data:any)=>void,onRemove:(id:string,name?:string)=>void,tab:string,canEdit?:boolean,canDelete?:boolean}){
