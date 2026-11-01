@@ -203,28 +203,7 @@ export default function Home() {
             </div>
 
             <div className="ps-video-bottom-bar">
-              <div className="ps-video-playlist">
-                <div className="ps-video-playlist-header">
-                  <span className="ps-video-playlist-title">Outros vídeos disponíveis</span>
-                  <span className="ps-video-playlist-count">{presentations.findIndex(p => p.file === selectedVideo) + 1} de {presentations.length}</span>
-                </div>
-                <div className="ps-video-playlist-items">
-                  {presentations.map((p, idx) => {
-                    const activeVideo = selectedVideo === p.file;
-                    return (
-                      <button
-                        key={p.id}
-                        type="button"
-                        className={`ps-video-pill ${activeVideo ? 'is-active' : ''}`}
-                        onClick={() => setSelectedVideo(p.file)}
-                      >
-                        <span className="ps-video-pill-play" aria-hidden="true">{activeVideo ? '●' : '▶'}</span>
-                        <span>{p.title}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              
 
               <div className="ps-video-actions">
                 <a href="/matriculas" className="ps-button ps-yellow">
