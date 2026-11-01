@@ -391,160 +391,166 @@ body.theme-dark .admin-shell .action-remove:hover {
   color: #ffffff;
 }
 
+
 /* ==========================================================================
-   CARD INSTITUCIONAL SPLIT (ESTILO PRINT 3 COM IMAGENS DOS PRINTS 1 E 2)
+   LAYOUT IDÊNTICO AO PRINT 3 (CAMPUS / INSTALAÇÕES APÓS A NOSSA IDENTIDADE)
    ========================================================================== */
-.in-facility-card {
-  display: grid;
-  grid-template-columns: 340px minmax(0, 1fr);
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 46, 96, 0.08);
-  border: 1px solid #dbe6f0;
-  margin: 35px 0 45px;
+.in-adventista-showcase {
+  margin: 30px 0 50px;
 }
-.in-facility-info {
-  background: #f1f5f9;
-  padding: 38px 32px;
+.in-adventista-card {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 34, 68, 0.08);
+  border: 1px solid #dbe5ee;
+  align-items: stretch;
+}
+.in-adventista-sidebar {
+  background: #edf2f7;
+  padding: 42px 36px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-right: 1px solid #e2e8f0;
 }
-.in-facility-brand {
-  margin-bottom: 24px;
+.in-adventista-heading {
+  margin-bottom: 30px;
 }
-.in-facility-brand h3 {
-  font-size: 21px;
-  font-weight: 850;
-  color: var(--navy, #003366);
+.in-adventista-heading h3 {
+  font-size: 24px;
+  font-weight: 750;
+  color: #3b5a79;
   margin: 0;
-  line-height: 1.2;
-  letter-spacing: -0.3px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
 }
-.in-facility-brand span {
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--yellow, #ffc72c);
-  margin-top: 4px;
-  letter-spacing: 0.2px;
+.in-adventista-subhead {
+  display: block;
+  font-size: 19px;
+  font-weight: 750;
+  color: #d99b26;
+  margin-top: 6px;
+  letter-spacing: -0.2px;
 }
-.in-facility-address {
+.in-adventista-address {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  margin: 16px 0;
-  color: #475569;
-  font-size: 12.5px;
-  line-height: 1.55;
+  gap: 14px;
+  margin-bottom: 18px;
+  color: #55728d;
 }
-.in-facility-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(0, 51, 102, 0.1);
-  color: var(--navy, #003366);
+.in-adventista-pin {
+  color: #3b5a79;
   flex-shrink: 0;
   margin-top: 2px;
 }
-.in-facility-map-link {
+.in-adventista-address-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #55728d;
+  font-weight: 500;
+}
+.in-adventista-map-link {
   display: inline-block;
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 850;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--yellow, #ffc72c);
+  color: #d99b26;
   text-decoration: none;
-  margin: 14px 0 24px;
+  margin-bottom: 38px;
   transition: opacity 0.2s;
 }
-.in-facility-map-link:hover {
+.in-adventista-map-link:hover {
   opacity: 0.8;
   text-decoration: underline;
 }
-.in-facility-contacts {
-  border-top: 1px solid #e2e8f0;
-  padding-top: 18px;
+.in-adventista-phones {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
+  gap: 5px;
+  font-size: 14px;
+  color: #1e3a5f;
+  margin-bottom: 24px;
+}
+.in-adventista-phones strong {
   font-weight: 750;
-  color: var(--navy, #003366);
+  color: #1e3a5f;
 }
-.in-facility-contacts a {
-  color: var(--navy, #003366);
-  text-decoration: none;
-  transition: color 0.2s;
+.in-adventista-tabs {
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid #dbe3eb;
+  padding-top: 18px;
 }
-.in-facility-contacts a:hover {
-  color: #03488a;
-  text-decoration: underline;
+.in-adventista-tab {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #3b5a79;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.in-facility-visual {
+.in-adventista-tab:hover {
+  background: #e2e8f0;
+}
+.in-adventista-tab.is-active {
+  background: #003366;
+  color: #ffffff;
+  border-color: #003366;
+}
+.in-adventista-stage {
   position: relative;
-  min-height: 380px;
-  background: #002244;
+  min-height: 440px;
+  background: #001f3f;
   overflow: hidden;
 }
-.in-facility-photos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 100%;
-  width: 100%;
-}
-.in-facility-photo-box {
-  position: relative;
-  height: 100%;
-  min-height: 380px;
-  overflow: hidden;
-  border-left: 2px solid #ffffff;
-}
-.in-facility-photo-box img {
+.in-adventista-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
   transition: transform 0.4s ease;
 }
-.in-facility-photo-box:hover img {
-  transform: scale(1.04);
+.in-adventista-card:hover .in-adventista-img {
+  transform: scale(1.02);
 }
-.in-facility-tag {
+.in-adventista-img-tag {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  background: rgba(0, 34, 68, 0.85);
-  backdrop-filter: blur(6px);
+  bottom: 18px;
+  left: 20px;
+  background: rgba(0, 32, 66, 0.85);
+  backdrop-filter: blur(8px);
   color: #ffffff;
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 750;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 980px) {
-  .in-facility-card {
+@media (max-width: 900px) {
+  .in-adventista-card {
     grid-template-columns: 1fr;
   }
-  .in-facility-info {
-    border-right: none;
-    border-bottom: 1px solid #e2e8f0;
+  .in-adventista-stage {
+    min-height: 320px;
   }
-  .in-facility-photos {
-    grid-template-columns: 1fr;
-  }
-  .in-facility-photo-box {
-    border-left: none;
-    border-top: 2px solid #ffffff;
-    min-height: 280px;
+  .in-adventista-sidebar {
+    padding: 30px 24px;
   }
 }
