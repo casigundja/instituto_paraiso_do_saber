@@ -102,7 +102,7 @@ export default function Institutional({page}:{page:'instituto'|'matriculas'|'con
  ];
  const activeVideoObj = instituteVideos.find(v => v.file === selectedVideo) || instituteVideos[0];
  return <PublicLayout>{page==='instituto'?<>
- <PageBanner eyebrow="Conheça o Instituto" title="Educar para cuidar. Formar para a vida." description="Conhecimento, responsabilidade e atenção às pessoas. Conheça o Instituto Técnico Privado de Saúde Paraíso do Saber." image="/banner-instituto-estudantes.jpg"><Link className="ps-button ps-yellow" href="/cursos">Explore as nossas formações ↗</Link></PageBanner>
+ <PageBanner eyebrow="Conheça o Instituto" title="Educar para cuidar. Formar para a vida." description="Conhecimento, responsabilidade e atenção às pessoas. Conheça o Instituto Técnico Privado de Saúde Paraíso do Saber." image=""><Link className="ps-button ps-yellow" href="/cursos">Explore as nossas formações ↗</Link></PageBanner>
   <section className="in-about-story">
     <div>
       <span className="ps-eyebrow">A NOSSA IDENTIDADE</span>
