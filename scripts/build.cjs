@@ -44,6 +44,7 @@ function copyToDist() {
   fs.mkdirSync(distDir, { recursive: true });
   copyRecursive(publicDir, distDir);
 
+  const ver = Date.now();
   const spaHtml = `<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -61,11 +62,11 @@ function copyToDist() {
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
     <link rel="shortcut icon" href="/favicon.ico?v=2">
-    <link rel="stylesheet" href="/site.css">
-    <link rel="stylesheet" href="/portal.css">
-    <link rel="stylesheet" href="/institutional.css">
-    <link rel="stylesheet" href="/theme.css">
-    <script defer src="/build/app.js"></script>
+    <link rel="stylesheet" href="/site.css?v=${ver}">
+    <link rel="stylesheet" href="/portal.css?v=${ver}">
+    <link rel="stylesheet" href="/institutional.css?v=${ver}">
+    <link rel="stylesheet" href="/theme.css?v=${ver}">
+    <script defer src="/build/app.js?v=${ver}"></script>
 </head>
 <body><div id="app"></div></body>
 </html>`;

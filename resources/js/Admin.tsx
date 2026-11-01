@@ -16,70 +16,37 @@ const navigation = [['overview','▦','Visão geral'],['courses','▤','Cursos']
 
 interface RoleAccessConfig {
   label: string;
-  badge: string;
   description: string;
   tabs: string[];
   canCreate: string[];
   canEdit: string[];
   canDelete: string[];
-  permissionsSummary: { module: string; access: string; level: 'full' | 'read' | 'none' }[];
 }
 
 const ROLE_CONFIG: Record<string, RoleAccessConfig> = {
   ADMIN: {
     label: 'Administrador',
-    badge: 'Acesso Total',
-    description: 'Controlo integral sobre todos os módulos, conteúdos, candidaturas, utilizadores, página inicial, definições gerais e auditoria.',
+    description: 'Atualize a oferta formativa de cursos técnicos de saúde, publique notícias e eventos académicos, gira a biblioteca multimédia e acompanhe as candidaturas submetidas pelos estudantes num único ambiente integrado.',
     tabs: ['overview','courses','events','campaigns','news','media','leads','users','home','settings','audit'],
     canCreate: ['courses','events','campaigns','news','media','leads','users'],
     canEdit: ['courses','events','campaigns','news','media','leads','users','home','settings'],
     canDelete: ['courses','events','campaigns','news','media','leads','users'],
-    permissionsSummary: [
-      { module: 'Visão geral', access: 'Acesso total e indicadores globais', level: 'full' },
-      { module: 'Cursos', access: 'Criar, editar, publicar e eliminar', level: 'full' },
-      { module: 'Eventos, Publicidade e Notícias', access: 'Criar, editar, agendar e eliminar', level: 'full' },
-      { module: 'Biblioteca multimédia', access: 'Carregar, catalogar e eliminar ficheiros', level: 'full' },
-      { module: 'Pedidos / Candidatos', access: 'Consultar, registar, atualizar estado, exportar e eliminar', level: 'full' },
-      { module: 'Utilizadores', access: 'Acesso total (com opção de realizar cadastro, edição e remoção)', level: 'full' },
-      { module: 'Página inicial e Definições', access: 'Configuração completa de secções, contactos e SEO', level: 'full' },
-      { module: 'Auditoria', access: 'Visualização integral do histórico de operações', level: 'read' },
-    ],
   },
   EDITOR: {
     label: 'Editor de Conteúdos',
-    badge: 'Gestão Editorial e Multimédia',
-    description: 'Acesso dedicado à visão geral, eventos, publicidade, notícias, biblioteca multimédia e consulta de auditoria.',
+    description: 'Publique e atualize eventos académicos, campanhas publicitárias, notícias oficiais e gira a biblioteca multimédia do Instituto.',
     tabs: ['overview','events','campaigns','news','media','audit'],
     canCreate: ['events','campaigns','news','media'],
     canEdit: ['events','campaigns','news','media'],
     canDelete: ['events','campaigns','news','media'],
-    permissionsSummary: [
-      { module: 'Visão geral', access: 'Visualização de indicadores editoriais e multimédia', level: 'read' },
-      { module: 'Eventos', access: 'Criar, editar, publicar e eliminar eventos', level: 'full' },
-      { module: 'Publicidade', access: 'Criar, editar e gerir campanhas e destaques', level: 'full' },
-      { module: 'Notícias', access: 'Criar, editar, agendar e eliminar notícias', level: 'full' },
-      { module: 'Biblioteca multimédia', access: 'Carregar fotografias/vídeos, editar álbuns e eliminar', level: 'full' },
-      { module: 'Auditoria', access: 'Visualização do registo de auditoria', level: 'read' },
-      { module: 'Cursos, Pedidos, Utilizadores e Definições', access: 'Sem acesso', level: 'none' },
-    ],
   },
   ATTENDANCE: {
     label: 'Atendimento / Secretaria',
-    badge: 'Secretaria Académica e Candidatos',
-    description: 'Acesso à visão geral, cursos, pedidos e candidatos, consulta de utilizadores (sem opção de realizar cadastro), página inicial e auditoria.',
+    description: 'Acompanhe os pedidos de informação e candidaturas de estudantes, consulte e atualize os cursos, secções da página inicial, utilizadores e auditoria.',
     tabs: ['overview','courses','leads','users','home','audit'],
     canCreate: ['courses','leads'],
     canEdit: ['courses','leads','home'],
     canDelete: ['courses'],
-    permissionsSummary: [
-      { module: 'Visão geral', access: 'Visualização de indicadores académicos e de candidaturas', level: 'read' },
-      { module: 'Cursos', access: 'Consultar, registar e atualizar oferta formativa', level: 'full' },
-      { module: 'Pedidos / Candidatos', access: 'Gerir candidaturas, atualizar estados e exportar Excel/CSV', level: 'full' },
-      { module: 'Utilizadores', access: 'Apenas visualização (sem opção de realizar cadastro ou alterar contas)', level: 'read' },
-      { module: 'Página inicial', access: 'Gerir visibilidade, títulos e ordem das secções da capa', level: 'full' },
-      { module: 'Auditoria', access: 'Visualização do registo de auditoria', level: 'read' },
-      { module: 'Eventos, Publicidade, Notícias, Multimédia e Definições', access: 'Sem acesso', level: 'none' },
-    ],
   },
 };
 const fieldLabels: Record<string, string> = {
