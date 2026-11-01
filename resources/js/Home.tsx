@@ -6,11 +6,11 @@ import { useTitle } from './portal';
 
 const initial = {
   courses: [
-    { slug: 'enfermagem', name: 'Enfermagem', image: '/banner1.jpeg', description: 'Formação técnica e humanizada para prestar cuidados integrados de saúde e assistência ao paciente.' },
-    { slug: 'analises-clinicas', name: 'Análises Clínicas', image: '/banner2.jpeg', description: 'Capacitação prática para a realização de exames laboratoriais e apoio fundamental ao diagnóstico clínico.' },
-    { slug: 'farmacia', name: 'Farmácia', image: '/banner1.jpeg', description: 'Formação para promover o uso seguro e responsável dos medicamentos.' },
-    { slug: 'fisioterapia', name: 'Fisioterapia', image: '/banner2.jpeg', description: 'Conhecimento para apoiar a reabilitação e a qualidade de vida.' },
-    { slug: 'estomatologia', name: 'Estomatologia / Medicina Dentária', image: '/banner3.jpeg', description: 'Prepare-se para cuidar da saúde oral com competência.' },
+    { slug: 'enfermagem', name: 'Enfermagem', image: '/banner-coleta-sangue.jpg', description: 'Formação técnica e humanizada para prestar cuidados integrados de saúde e assistência ao paciente.' },
+    { slug: 'analises-clinicas', name: 'Análises Clínicas', image: '/banner-analises-microscopio.jpg', description: 'Capacitação prática para a realização de exames laboratoriais e apoio fundamental ao diagnóstico clínico.' },
+    { slug: 'farmacia', name: 'Farmácia', image: '/media/courses/farmacia.jpg', description: 'Formação para promover o uso seguro e responsável dos medicamentos.' },
+    { slug: 'fisioterapia', name: 'Fisioterapia', image: '/media/courses/fisioterapia.jpg', description: 'Conhecimento para apoiar a reabilitação e a qualidade de vida.' },
+    { slug: 'estomatologia', name: 'Estomatologia / Medicina Dentária', image: '/media/courses/estomatologia.jpg', description: 'Prepare-se para cuidar da saúde oral com competência.' },
   ],
   campaigns: [], events: [], news: [], sections: [],
   settings: { institutionName: 'Instituto Técnico Privado de Saúde Paraíso do Saber', logo: '/logo_transparent.png', phone1: '+244 930 133 850', phone2: '+244 953 955 368', whatsapp: '244930133850', address: 'Bairro Paraíso, depois da Pracinha Nova, em frente à Casa do Partido do MPLA.' },
