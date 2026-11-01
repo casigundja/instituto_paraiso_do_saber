@@ -60,8 +60,8 @@ class PortalController extends Controller
         }
         if ($role === 'ATTENDANCE') {
             $allowed = $mode === 'read'
-                ? ['courses', 'leads', 'users', 'audit']
-                : ['courses', 'leads'];
+                ? ['courses', 'leads', 'users', 'sections', 'audit']
+                : ['courses', 'leads', 'sections'];
             abort_unless(in_array($entity, $allowed, true), 403, 'Sem permissão para esta operação.');
 
             return;

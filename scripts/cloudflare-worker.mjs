@@ -153,8 +153,8 @@ export default {
         }
         if (role === 'ATTENDANCE') {
           const allowed = mode === 'read'
-            ? ['courses', 'leads', 'users', 'audit']
-            : ['courses', 'leads'];
+            ? ['courses', 'leads', 'users', 'sections', 'audit']
+            : ['courses', 'leads', 'sections'];
           return allowed.includes(entity);
         }
         return false;

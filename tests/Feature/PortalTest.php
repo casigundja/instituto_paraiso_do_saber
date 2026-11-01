@@ -73,6 +73,7 @@ class PortalTest extends TestCase
         $this->withToken($this->token('ATTENDANCE'));
         $this->putJson('/api/admin/leads/'.$id, ['status' => 'CONTACTED'])->assertOk();
         $this->getJson('/api/admin/courses')->assertOk();
+        $this->getJson('/api/admin/sections')->assertOk();
         $this->getJson('/api/admin/users')->assertOk();
         $this->postJson('/api/admin/users', ['name' => 'Novo', 'email' => 'novo@paraisodosaber.ao', 'password' => '12345678', 'role' => 'ATTENDANCE'])->assertForbidden();
         $this->getJson('/api/admin/audit')->assertOk();
