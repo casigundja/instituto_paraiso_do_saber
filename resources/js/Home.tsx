@@ -40,9 +40,42 @@ export default function Home() {
   const section = (key: string) => data.sections.find((s: any) => s.key === key);
   const visible = (key: string) => section(key)?.enabled !== false;
   const slides = data.campaigns.length ? data.campaigns : [
-    { title: section('hero')?.title || 'O seu futuro começa aqui.', subtitle: section('hero')?.description || 'Transforme a sua vocação numa carreira na saúde.', image: '/banner1.jpeg', buttonText: 'Quero fazer parte', url: '#interesse' },
-    { title: 'Aprender hoje. Cuidar amanhã.', subtitle: 'Conheça os cursos de Enfermagem, Análises Clínicas, Farmácia e muito mais.', image: '/banner2.jpeg', buttonText: 'Conheça os cursos', url: '#cursos' },
-    { title: 'Dê o próximo passo.', subtitle: 'A sua formação começa com uma conversa. Fale com a nossa equipa.', image: '/banner3.jpeg', buttonText: 'Tenho interesse', url: '#interesse' },
+    {
+      kicker: 'CAMPUS E INFRAESTRUTURA',
+      label: 'Fachada Principal',
+      title: section('hero')?.title || 'O seu futuro começa aqui.',
+      subtitle: 'Conheça as instalações do Instituto Técnico Privado de Saúde Paraíso do Saber — um espaço moderno e estruturado para formar profissionais de excelência.',
+      image: '/banner-campus-fachada.jpg',
+      buttonText: 'Quero fazer parte',
+      url: '#interesse',
+    },
+    {
+      kicker: 'AMBIENTE ACADÉMICO MODERNO',
+      label: 'Átrio e Salas',
+      title: 'Aprender hoje. Cuidar amanhã.',
+      subtitle: 'Salas de aula organizadas, iluminação acolhedora e estrutura preparada para Enfermagem, Análises Clínicas, Farmácia, Fisioterapia e Estomatologia.',
+      image: '/banner-campus-atrio.jpg',
+      buttonText: 'Conheça os cursos',
+      url: '#cursos',
+    },
+    {
+      kicker: 'ESTRUTURA E CONVIVÊNCIA',
+      label: 'Galerias Académicas',
+      title: 'Dê o próximo passo.',
+      subtitle: 'Galerias amplas, ambiente seguro e acompanhamento pedagógico próximo em todas as etapas da sua formação técnica na área da saúde.',
+      image: '/banner-campus-galerias.jpg',
+      buttonText: 'Tenho interesse',
+      url: '#interesse',
+    },
+    {
+      kicker: 'PRÁTICA LABORATORIAL',
+      label: 'Laboratórios Clínicos',
+      title: 'Ensino com rigor rumo à excelência.',
+      subtitle: 'Aulas práticas em laboratório com acompanhamento especializado para preparar profissionais prontos para os desafios do setor da saúde.',
+      image: '/banner2.jpeg',
+      buttonText: 'Fazer matrícula',
+      url: '/matriculas',
+    },
   ];
   const active = slides[slide % slides.length];
   useEffect(() => { if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; const timer = setInterval(() => setSlide(n => (n + 1) % slides.length), 6500); return () => clearInterval(timer) }, [paused, slides.length]);
@@ -60,19 +93,53 @@ export default function Home() {
     } catch { setStatus('error') }
   }
   return <PublicLayout settings={settings} onSearch={setQuery} searchValue={query}>
-    {visible('hero') && <section className="ps-banner" aria-label="Destaques do Instituto" aria-roledescription="carrossel">
-      {slides.map((s: any, i: number) => (
-        <img
-          key={s.image || i}
-          className={`ps-banner-photo ${i === slide % slides.length ? 'is-active' : ''}`}
-          src={asset(s.image || '/banner1.jpeg')}
-          alt={s.title}
-          loading={i === 0 ? 'eager' : 'lazy'}
-        />
-      ))}
-      <div className="ps-banner-shade" /><div className="ps-badge-banner" aria-label="Inscrições abertas"><small>INSCRIÇÕES</small><strong>ABERTAS</strong><small>SAIBA MAIS</small></div><span className="ps-banner-corner" aria-hidden="true">INSTITUTO TÉCNICO PRIVADO DE SAÚDE</span>
-      <div className="ps-banner-copy"><span className="ps-kicker">CONHECIMENTO QUE TRANSFORMA VIDAS</span><h1>{active.title}</h1><p>{active.subtitle || active.description}</p><a className="ps-button ps-yellow" href={active.url || '#interesse'}>{active.buttonText || 'Saiba mais'}<Arrow /></a><span className="ps-banner-signature">PARAÍSO DO SABER <span>EDUCAÇÃO • SAÚDE • FUTURO</span></span></div>
-      <div className="ps-slider-controls"><button aria-label="Destaque anterior" onClick={() => setSlide(n => (n + slides.length - 1) % slides.length)}>‹</button><div>{slides.map((_: any, i: number) => <button key={i} className={i === slide % slides.length ? 'selected' : ''} aria-label={`Mostrar destaque ${i + 1}`} aria-pressed={i === slide % slides.length} onClick={() => setSlide(i)} />)}</div><button aria-label="Próximo destaque" onClick={() => setSlide(n => (n + 1) % slides.length)}>›</button><button className="ps-pause" aria-label={paused ? 'Reproduzir destaques' : 'Pausar destaques'} onClick={() => setPaused(!paused)}>{paused ? '▶' : 'Ⅱ'}</button></div>
+    {visible('hero') && <section className="ps-banner ps-banner-split" aria-label="Destaques do Instituto" aria-roledescription="carrossel">
+      <div className="ps-banner-copy">
+        <div className="ps-banner-eyebrow-row">
+          <span className="ps-kicker">{active.kicker || 'CONHECIMENTO QUE TRANSFORMA VIDAS'}</span>
+          <span className="ps-banner-status-pill"><span className="ps-status-dot" />Inscrições Abertas</span>
+        </div>
+        <h1>{active.title}</h1>
+        <p>{active.subtitle || active.description}</p>
+        <div className="ps-banner-actions">
+          <a className="ps-button ps-yellow" href={active.url || '#interesse'}>{active.buttonText || 'Saiba mais'}<Arrow /></a>
+          <a className="ps-banner-secondary-btn" href="#cursos">Explorar cursos</a>
+        </div>
+        <div className="ps-banner-view-tabs" role="tablist" aria-label="Vistas do Instituto">
+          {slides.map((s: any, i: number) => (
+            <button
+              key={s.image || i}
+              type="button"
+              role="tab"
+              aria-selected={i === slide % slides.length}
+              className={`ps-banner-view-tab ${i === slide % slides.length ? 'is-active' : ''}`}
+              onClick={() => setSlide(i)}
+            >
+              <span className="ps-banner-view-num">0{i + 1}</span>
+              <span>{s.label || `Destaque ${i + 1}`}</span>
+            </button>
+          ))}
+        </div>
+        <span className="ps-banner-signature">PARAÍSO DO SABER <span>EDUCAÇÃO • SAÚDE • FUTURO</span></span>
+      </div>
+      <div className="ps-banner-stage">
+        {slides.map((s: any, i: number) => (
+          <img
+            key={s.image || i}
+            className={`ps-banner-photo ${i === slide % slides.length ? 'is-active' : ''}`}
+            src={asset(s.image || '/banner-campus-fachada.jpg')}
+            alt={s.title}
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
+        ))}
+        <div className="ps-banner-stage-edge" aria-hidden="true" />
+        <div className="ps-badge-banner" aria-label="Inscrições abertas"><small>INSCRIÇÕES</small><strong>ABERTAS</strong><small>SAIBA MAIS</small></div>
+        <div className="ps-banner-stage-caption">
+          <span className="ps-stage-caption-tag">0{(slide % slides.length) + 1} / 0{slides.length}</span>
+          <strong>{active.label || 'Campus Paraíso do Saber'}</strong>
+        </div>
+        <div className="ps-slider-controls"><button aria-label="Destaque anterior" onClick={() => setSlide(n => (n + slides.length - 1) % slides.length)}>‹</button><div>{slides.map((_: any, i: number) => <button key={i} className={i === slide % slides.length ? 'selected' : ''} aria-label={`Mostrar destaque ${i + 1}`} aria-pressed={i === slide % slides.length} onClick={() => setSlide(i)} />)}</div><button aria-label="Próximo destaque" onClick={() => setSlide(n => (n + 1) % slides.length)}>›</button><button className="ps-pause" aria-label={paused ? 'Reproduzir destaques' : 'Pausar destaques'} onClick={() => setPaused(!paused)}>{paused ? '▶' : 'Ⅱ'}</button></div>
+      </div>
     </section>}
     {visible('courses') && <>
       <nav className="ps-course-tabs" aria-label="Cursos disponíveis">{data.courses.map((c: any) => {
