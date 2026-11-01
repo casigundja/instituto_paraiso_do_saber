@@ -43,9 +43,6 @@ export default function Home() {
     { title: section('hero')?.title || 'O seu futuro começa aqui.', subtitle: section('hero')?.description || 'Transforme a sua vocação numa carreira na saúde.', image: '/banner-campus-fachada.jpg', buttonText: 'Quero fazer parte', url: '#interesse' },
     { title: 'Aprender hoje. Cuidar amanhã.', subtitle: 'Conheça os cursos de Enfermagem, Análises Clínicas, Farmácia e muito mais.', image: '/banner-campus-atrio.jpg', buttonText: 'Conheça os cursos', url: '#cursos' },
     { title: 'Dê o próximo passo.', subtitle: 'A sua formação começa com uma conversa. Fale com a nossa equipa.', image: '/banner-campus-galerias.jpg', buttonText: 'Tenho interesse', url: '#interesse' },
-    { title: 'O seu futuro começa aqui.', subtitle: 'Transforme a sua vocação numa carreira na saúde.', image: '/banner1.jpeg', buttonText: 'Quero fazer parte', url: '#interesse' },
-    { title: 'Aprender hoje. Cuidar amanhã.', subtitle: 'Conheça os cursos de Enfermagem, Análises Clínicas, Farmácia e muito mais.', image: '/banner2.jpeg', buttonText: 'Conheça os cursos', url: '#cursos' },
-    { title: 'Dê o próximo passo.', subtitle: 'A sua formação começa com uma conversa. Fale com a nossa equipa.', image: '/banner3.jpeg', buttonText: 'Tenho interesse', url: '#interesse' },
   ];
   const active = slides[slide % slides.length];
   useEffect(() => { if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; const timer = setInterval(() => setSlide(n => (n + 1) % slides.length), 6500); return () => clearInterval(timer) }, [paused, slides.length]);
