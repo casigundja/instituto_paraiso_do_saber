@@ -246,8 +246,13 @@ export default function Home() {
                 </div>
                 <video
                   key={selectedVideo}
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
                   controls
-                  preload="metadata"
+                  preload="auto"
+                  ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
                   poster={selectedVideo === '/publicidade3.mp4' ? '/media/video3_poster.jpg' : '/media/video_poster.jpg'}
                   className="ps-video-player"
                 >

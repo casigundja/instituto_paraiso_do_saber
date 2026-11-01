@@ -164,8 +164,13 @@ export default function Institutional({page}:{page:'instituto'|'matriculas'|'con
        </span>
        <video
          key={selectedVideo}
+         autoPlay
+         muted
+         playsInline
+         loop
          controls
-         preload="metadata"
+         preload="auto"
+         ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
          poster={activeVideoObj.poster}
          className="in-cinema-video"
        >
