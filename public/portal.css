@@ -3831,6 +3831,211 @@ body .in-gallery-card:hover .in-gallery-card-footer b {
   }
 }
 
+/* ==========================================================================
+   MATRIZ DE PERFIS E PERMISSÕES DE ACESSO (/admin)
+   ========================================================================== */
+body .admin-box.adm-permissions-box {
+  margin-top: 22px;
+  padding: 26px 28px !important;
+}
+
+.adm-roles-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+  margin-bottom: 24px;
+}
+
+.adm-role-card {
+  background: var(--adm-surface-alt);
+  border: 1.5px solid var(--adm-border);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.adm-role-card.is-current-role {
+  border-color: var(--adm-accent);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.12);
+  background: var(--adm-surface);
+}
+
+.adm-role-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.adm-role-badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--adm-accent);
+  margin-bottom: 4px;
+}
+
+.adm-role-card h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 850;
+  color: var(--adm-text);
+}
+
+.adm-role-active-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+body.theme-dark .adm-role-active-tag {
+  background: rgba(16, 185, 129, 0.16);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.adm-role-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--adm-text-muted);
+}
+
+.adm-role-tabs-list {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--adm-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adm-role-tabs-list > small {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--adm-text-soft);
+}
+
+.adm-role-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.adm-role-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--adm-border-strong);
+  background: var(--adm-surface);
+  color: var(--adm-text);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.adm-role-tab-pill:hover:not(:disabled) {
+  border-color: var(--adm-accent);
+  color: var(--adm-accent);
+}
+
+.adm-role-tab-pill:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.adm-matrix-table-wrap {
+  margin-top: 6px;
+}
+
+.adm-perm-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 750;
+}
+
+.adm-perm-full {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+body.theme-dark .adm-perm-full {
+  background: rgba(16, 185, 129, 0.14);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.adm-perm-read {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+}
+
+body.theme-dark .adm-perm-read {
+  background: rgba(59, 130, 246, 0.16);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.adm-perm-none {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+body.theme-dark .adm-perm-none {
+  background: rgba(100, 116, 139, 0.14);
+  color: #94a3b8;
+  border-color: rgba(100, 116, 139, 0.28);
+}
+
+.adm-readonly-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body.theme-dark .adm-readonly-pill {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+@media (max-width: 1100px) {
+  .adm-roles-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* ============================================================
    GALERIA FOTOGRÁFICA (/galeria) — CARDS E GRELHA REDESENHADOS
    ============================================================ */
@@ -4052,6 +4257,211 @@ body .in-gallery-card:hover .in-gallery-card-footer b {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   MATRIZ DE PERFIS E PERMISSÕES DE ACESSO (/admin)
+   ========================================================================== */
+body .admin-box.adm-permissions-box {
+  margin-top: 22px;
+  padding: 26px 28px !important;
+}
+
+.adm-roles-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+  margin-bottom: 24px;
+}
+
+.adm-role-card {
+  background: var(--adm-surface-alt);
+  border: 1.5px solid var(--adm-border);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.adm-role-card.is-current-role {
+  border-color: var(--adm-accent);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.12);
+  background: var(--adm-surface);
+}
+
+.adm-role-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.adm-role-badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--adm-accent);
+  margin-bottom: 4px;
+}
+
+.adm-role-card h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 850;
+  color: var(--adm-text);
+}
+
+.adm-role-active-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+body.theme-dark .adm-role-active-tag {
+  background: rgba(16, 185, 129, 0.16);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.adm-role-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--adm-text-muted);
+}
+
+.adm-role-tabs-list {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--adm-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adm-role-tabs-list > small {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--adm-text-soft);
+}
+
+.adm-role-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.adm-role-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--adm-border-strong);
+  background: var(--adm-surface);
+  color: var(--adm-text);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.adm-role-tab-pill:hover:not(:disabled) {
+  border-color: var(--adm-accent);
+  color: var(--adm-accent);
+}
+
+.adm-role-tab-pill:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.adm-matrix-table-wrap {
+  margin-top: 6px;
+}
+
+.adm-perm-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 750;
+}
+
+.adm-perm-full {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+body.theme-dark .adm-perm-full {
+  background: rgba(16, 185, 129, 0.14);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.adm-perm-read {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+}
+
+body.theme-dark .adm-perm-read {
+  background: rgba(59, 130, 246, 0.16);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.adm-perm-none {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+body.theme-dark .adm-perm-none {
+  background: rgba(100, 116, 139, 0.14);
+  color: #94a3b8;
+  border-color: rgba(100, 116, 139, 0.28);
+}
+
+.adm-readonly-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body.theme-dark .adm-readonly-pill {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+@media (max-width: 1100px) {
+  .adm-roles-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 
 

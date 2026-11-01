@@ -114,33 +114,57 @@ export default {
         const rawId = String(body.identifier || body.email || '').trim().toLowerCase();
         const password = String(body.password || '').trim();
         const users = state.users || [];
-        const user =
-          users.find((u) => String(u.email || '').toLowerCase() === rawId || String(u.email || '').toLowerCase() === `${rawId}@paraisodosaber.ao`) ||
-          users[0] || {
-            id: 'admin-1',
-            name: 'Administrador Principal',
-            email: 'admin@paraisodosaber.ao',
-            role: 'ADMIN',
-            active: true,
-          };
-        if ((rawId === 'admin' || rawId === 'admin@paraisodosaber.ao' || user) && (password === 'admin123456' || password === 'Paraiso2026!')) {
-          return json({ token: 'cf-admin-session-token', user });
+        const normalizedId = rawId === 'atendimento' ? 'secretaria@paraisodosaber.ao' : rawId.includes('@') ? rawId : `${rawId}@paraisodosaber.ao`;
+        const user = users.find(
+          (u) => String(u.email || '').toLowerCase() === rawId || String(u.email || '').toLowerCase() === normalizedId
+        );
+        const validPasswords = ['admin123456', 'editor123456', 'secretaria123456', 'Paraiso2026!'];
+        if (user && user.active !== false && validPasswords.includes(password)) {
+          return json({ token: `cf-session-${user.role}-${user.id}`, user });
         }
         return json({ message: 'E-mail ou palavra-passe inválidos.' }, 422);
       }
 
-      if (path === '/api/auth/me' && request.method === 'GET') {
+      const resolveAuthUser = () => {
         const auth = request.headers.get('Authorization') || '';
-        if (!auth.startsWith('Bearer ')) {
-          return json({ message: 'Não autenticado.' }, 401);
-        }
-        const user = (state.users && state.users[0]) || {
+        if (!auth.startsWith('Bearer ')) return null;
+        const token = auth.slice(7).trim();
+        const users = state.users || [];
+        const matched = users.find((u) => token === `cf-session-${u.role}-${u.id}`);
+        if (matched) return matched;
+        if (token.includes('EDITOR')) return users.find((u) => u.role === 'EDITOR') || null;
+        if (token.includes('ATTENDANCE')) return users.find((u) => u.role === 'ATTENDANCE') || null;
+        return users[0] || {
           id: 'admin-1',
           name: 'Administrador Principal',
           email: 'admin@paraisodosaber.ao',
           role: 'ADMIN',
           active: true,
         };
+      };
+
+      const canAccessEntity = (role, entity, mode = 'read') => {
+        if (role === 'ADMIN') return true;
+        if (role === 'EDITOR') {
+          const allowed = mode === 'read'
+            ? ['events', 'campaigns', 'news', 'media', 'audit']
+            : ['events', 'campaigns', 'news', 'media'];
+          return allowed.includes(entity);
+        }
+        if (role === 'ATTENDANCE') {
+          const allowed = mode === 'read'
+            ? ['courses', 'leads', 'users', 'audit']
+            : ['courses', 'leads'];
+          return allowed.includes(entity);
+        }
+        return false;
+      };
+
+      if (path === '/api/auth/me' && request.method === 'GET') {
+        const user = resolveAuthUser();
+        if (!user) {
+          return json({ message: 'Não autenticado.' }, 401);
+        }
         return json(user);
       }
 
@@ -155,6 +179,8 @@ export default {
       }
 
       if (path === '/api/admin/dashboard' && request.method === 'GET') {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
         return json({
           courses: getPublished('courses').length,
           events: getPublished('events').length,
@@ -166,20 +192,41 @@ export default {
       }
 
       if (path === '/api/admin/settings' && request.method === 'GET') {
-        return json({
-          settings: state.settings || {},
-          sections: [...(state.sections || [])].sort((a, b) => Number(a.order || 0) - Number(b.order || 0)),
-        });
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
+        if (!canAccessEntity(user.role, 'settings', 'read')) {
+          return json({ message: 'Sem permissão para esta área.' }, 403);
+        }
+        return json(state.settings || {});
       }
 
       if (path === '/api/admin/settings' && request.method === 'PUT') {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
+        if (!canAccessEntity(user.role, 'settings', 'write')) {
+          return json({ message: 'Sem permissão para esta operação.' }, 403);
+        }
         const body = await request.json().catch(() => ({}));
         state.settings = { ...(state.settings || {}), ...body };
         return json(state.settings);
       }
 
+      if (path === '/api/admin/sections' && request.method === 'GET') {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
+        if (!canAccessEntity(user.role, 'sections', 'read')) {
+          return json({ message: 'Sem permissão para esta área.' }, 403);
+        }
+        return json([...(state.sections || [])].sort((a, b) => Number(a.order || 0) - Number(b.order || 0)));
+      }
+
       const sectionMatch = path.match(/^\/api\/admin\/home-sections\/([^/]+)$/);
       if (sectionMatch && request.method === 'PUT') {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
+        if (!canAccessEntity(user.role, 'sections', 'write')) {
+          return json({ message: 'Sem permissão para esta operação.' }, 403);
+        }
         const id = sectionMatch[1];
         const body = await request.json().catch(() => ({}));
         state.sections = (state.sections || []).map((s) => (s.id === id ? { ...s, ...body } : s));
@@ -188,11 +235,19 @@ export default {
 
       const adminEntityMatch = path.match(/^\/api\/admin\/(courses|events|campaigns|news|leads|users|media|audit)(?:\/([^/]+))?$/);
       if (adminEntityMatch) {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
         const [, entity, id] = adminEntityMatch;
         if (request.method === 'GET') {
+          if (!canAccessEntity(user.role, entity, 'read')) {
+            return json({ message: 'Sem permissão para esta área.' }, 403);
+          }
           return json(state[entity] || []);
         }
         if (request.method === 'POST') {
+          if (!canAccessEntity(user.role, entity, 'write')) {
+            return json({ message: 'Sem permissão para realizar cadastro nesta secção.' }, 403);
+          }
           const body = await request.json().catch(() => ({}));
           const created = {
             id: crypto.randomUUID(),
@@ -200,14 +255,31 @@ export default {
             createdAt: new Date().toISOString(),
           };
           state[entity] = [created, ...(state[entity] || [])];
+          state.audit = [
+            {
+              id: crypto.randomUUID(),
+              userId: user.id,
+              action: 'CREATE',
+              entity,
+              entityId: created.id,
+              createdAt: new Date().toISOString(),
+            },
+            ...(state.audit || []),
+          ];
           return json(created, 201);
         }
         if (request.method === 'PUT' && id) {
+          if (!canAccessEntity(user.role, entity, 'write')) {
+            return json({ message: 'Sem permissão para atualizar este registo.' }, 403);
+          }
           const body = await request.json().catch(() => ({}));
           state[entity] = (state[entity] || []).map((item) => (item.id === id ? { ...item, ...body } : item));
           return json((state[entity] || []).find((item) => item.id === id) || body);
         }
         if (request.method === 'DELETE' && id) {
+          if (!canAccessEntity(user.role, entity, 'write') || (user.role === 'ATTENDANCE' && (entity === 'leads' || entity === 'users'))) {
+            return json({ message: 'Sem permissão para eliminar este registo.' }, 403);
+          }
           state[entity] = (state[entity] || []).filter((item) => item.id !== id);
           return json({ deleted: true });
         }

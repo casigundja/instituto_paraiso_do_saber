@@ -49,6 +49,12 @@ class PortalTest extends TestCase
         Storage::fake('public');
         $this->withToken($this->token('EDITOR'));
         $this->getJson('/api/admin/users')->assertForbidden();
+        $this->getJson('/api/admin/courses')->assertForbidden();
+        $this->getJson('/api/admin/leads')->assertForbidden();
+        $this->getJson('/api/admin/events')->assertOk();
+        $this->getJson('/api/admin/campaigns')->assertOk();
+        $this->getJson('/api/admin/news')->assertOk();
+        $this->getJson('/api/admin/audit')->assertOk();
         $this->putJson('/api/admin/settings', ['phone1' => '123'])->assertForbidden();
         $media = $this->postJson('/api/admin/upload', ['file' => UploadedFile::fake()->create('guide.pdf', 10, 'application/pdf')])->assertCreated()->json();
         Storage::disk('public')->assertExists('media/'.$media['filename']);
@@ -66,7 +72,11 @@ class PortalTest extends TestCase
         $id = $this->postJson('/api/public/leads', ['name' => '=SUM(1)', 'phone' => '123'])->assertCreated()->json('id');
         $this->withToken($this->token('ATTENDANCE'));
         $this->putJson('/api/admin/leads/'.$id, ['status' => 'CONTACTED'])->assertOk();
-        $this->getJson('/api/admin/courses')->assertForbidden();
+        $this->getJson('/api/admin/courses')->assertOk();
+        $this->getJson('/api/admin/users')->assertOk();
+        $this->postJson('/api/admin/users', ['name' => 'Novo', 'email' => 'novo@paraisodosaber.ao', 'password' => '12345678', 'role' => 'ATTENDANCE'])->assertForbidden();
+        $this->getJson('/api/admin/audit')->assertOk();
+        $this->getJson('/api/admin/events')->assertForbidden();
         $this->deleteJson('/api/admin/leads/'.$id)->assertForbidden();
         $response = $this->get('/api/admin/leads/export.csv')->assertOk();
         $this->assertStringContainsString("'=SUM(1)",$response->streamedContent());

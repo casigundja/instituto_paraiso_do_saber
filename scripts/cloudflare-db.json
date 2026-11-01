@@ -17,6 +17,42 @@
             "active": true,
             "createdAt": "2026-11-01 04:03:25",
             "updatedAt": "2026-11-01 04:05:13"
+        },
+        {
+            "id": "a6ea0aee-6e44-4456-a8c0-0aaa5b3254e8",
+            "email": "noticia@outlook.com",
+            "name": "Teste",
+            "role": "EDITOR",
+            "active": true,
+            "createdAt": "2026-11-01 04:13:52",
+            "updatedAt": "2026-11-01 04:13:52"
+        },
+        {
+            "id": "a8209012-9161-4799-b7dc-b33e2ff23e50",
+            "email": "secretario@outlook.com",
+            "name": "Secretario",
+            "role": "ATTENDANCE",
+            "active": true,
+            "createdAt": "2026-11-01 04:14:28",
+            "updatedAt": "2026-11-01 04:14:28"
+        },
+        {
+            "id": "7604a0dd-6c40-4189-86ac-194ef64a7909",
+            "email": "editor@paraisodosaber.ao",
+            "name": "Editor de Conteúdos",
+            "role": "EDITOR",
+            "active": true,
+            "createdAt": "2026-11-01 04:23:20",
+            "updatedAt": "2026-11-01 04:23:20"
+        },
+        {
+            "id": "3bd9cbf0-b5c1-4628-9919-3e07edfe4450",
+            "email": "secretaria@paraisodosaber.ao",
+            "name": "Atendimento / Secretaria",
+            "role": "ATTENDANCE",
+            "active": true,
+            "createdAt": "2026-11-01 04:23:21",
+            "updatedAt": "2026-11-01 04:23:21"
         }
     ],
     "courses": [
@@ -136,7 +172,7 @@
             "id": "966a2eb3-cd88-429f-9c9b-cf993a915128",
             "slug": "jornadas-cientificas-instituto-paraiso-do-saber",
             "title": "Jornadas Científicas do Instituto Paraíso do Saber",
-            "description": "Quem não senta para aprender, não levanta para ensinar. Nesse intervalo de 11 à 15 do mês em curso, tivemos dias ricos, uns mais que os outros!\n\nA toda a comunidade estudantil do Instituto Técnico Privado de Saúde Paraíso do Saber (técnicas/os, docentes, discentes, e interessadas/os em geral), o nosso sincero e caloroso agradecimento pelo envolvimento, dedicação e espírito de partilha.\n\nChegamos ao fim de mais um desafio com a realização bem-sucedida das nossas Jornadas Científicas, que foram extremamente proveitosas e enriquecedoras para todos os participantes. Com esta iniciativa, reafirmamos o compromisso de dar uma nova roupagem ao bairro e a todo o município de Cacuaco.\n\nEste rico país tem um destino e um nobre desafio a cumprir: fazer ciência com rigor e formar profissionais de saúde altamente qualificados e humanizados para se inserirem e transformarem positivamente a sociedade.",
+            "description": "Quem não senta para aprender, não levanta para ensinar. Nesse intervalo de 11 à 15 do mês em curso, tivemos dias ricos, uns mais que os outros!\n\nA toda a comunidade estudantil do Instituto Técnico Privado de Saúde Paraíso do Saber (técnicas/os, docentes, discentes, e interessadas/os em geral), o nosso sincero e caloroso agradecimento pelo envolvimento, dedicação e espírito de partilha.\n\nChegamos ao fim de mais um desafio com a realização bem-sucedida das nossas Jornadas Científicas, que foram extremamente proveitosas e enriquecedoras para todos os participantes. Com esta iniciativa, reafirmamos o compromisso de dar uma nova roupagem ao bairro e a todo o município de Cacuaco!\n\nEste rico país tem um destino e um nobre desafio a cumprir: fazer ciência com rigor e formar profissionais de saúde altamente qualificados e humanizados para se inserirem e transformarem positivamente a sociedade.",
             "image": "/media/events/jornadas-cientificas-1.jpg",
             "video": null,
             "startsAt": "2026-11-11 08:30:00",
@@ -147,7 +183,7 @@
             "registrationUrl": "https://www.facebook.com/EFTSPARAISODOSABER/posts/pfbid01FJ7zfcqNjt8BZN7pUCzascpUsHwfCk1uzN8MWfAi6Vz5wnaiGj7UJVJyyu7H4JCl",
             "status": "UPCOMING",
             "publication": "PUBLISHED",
-            "createdAt": "2026-10-31 22:36:43",
+            "createdAt": "2026-11-01 04:23:21",
             "publishAt": "2026-10-31 08:00:00",
             "metaTitle": "Jornadas Científicas | Instituto Paraíso do Saber",
             "metaDescription": "Quem não senta para aprender, não levanta para ensinar. Acompanhe os momentos e resultados das Jornadas Científicas no Instituto Paraíso do Saber em Cacuaco."
@@ -167,10 +203,10 @@
             "registrationUrl": "https://www.facebook.com/EFTSPARAISODOSABER/posts/pfbid0228J8J6BRVVWrF86sSkVaqxBJUkAzt1Nu7QMCF51ABtBk4LrdyFetggyExriZaACNl",
             "status": "UPCOMING",
             "publication": "PUBLISHED",
-            "createdAt": "2026-10-31 23:01:12",
+            "createdAt": "2026-11-01 04:23:21",
             "publishAt": "2026-10-31 08:00:00",
             "metaTitle": "Inauguração da Quadra Desportiva | Paraíso do Saber",
-            "metaDescription": "Inauguração da quadra desportiva com a presença das lendas do futebol angolano Akwá, Kali e Zé Kalanga no Paraíso do Saber."
+            "metaDescription": "Inauguração da quadra desportiva com as lendas do futebol angolano Akwá, Kali e Zé Kalanga no Paraíso do Saber."
         },
         {
             "id": "95d18b96-6d23-4662-8a94-33e656b635e8",
@@ -187,7 +223,7 @@
             "registrationUrl": "https://www.facebook.com/EFTSPARAISODOSABER/posts/pfbid0iisF2qAYa5mJwutTkuHBMLX5jjSe9FWYtmGWTpN1bVfyEWCxDx3v3XMxtXWtqTaUl",
             "status": "UPCOMING",
             "publication": "PUBLISHED",
-            "createdAt": "2026-10-31 23:01:12",
+            "createdAt": "2026-11-01 04:23:21",
             "publishAt": "2026-10-31 08:00:00",
             "metaTitle": "Feira do Inventor em Cacuaco | Paraíso do Saber",
             "metaDescription": "Participação do Instituto Técnico Privado de Saúde Paraíso do Saber na Feira do Inventor, Ciência e Tecnologia em Cacuaco."
@@ -207,7 +243,7 @@
             "registrationUrl": "https://www.facebook.com/EFTSPARAISODOSABER/videos/778649844170276/",
             "status": "UPCOMING",
             "publication": "PUBLISHED",
-            "createdAt": "2026-10-31 23:01:12",
+            "createdAt": "2026-11-01 04:23:21",
             "publishAt": "2026-10-31 08:00:00",
             "metaTitle": "2ª Feira de Saúde Comunitária | Paraíso do Saber",
             "metaDescription": "Combate às Doenças Diarreicas Agudas e promoção da saúde pública no Município de Cacuaco."
@@ -227,7 +263,7 @@
             "registrationUrl": "https://www.facebook.com/EFTSPARAISODOSABER/posts/pfbid0d8jNsK7TAoswfq4rtm3A5QidTrEPELDdzqv6pUAyNoDhCDxmD43Zax8kjKosHfrnl",
             "status": "UPCOMING",
             "publication": "PUBLISHED",
-            "createdAt": "2026-10-31 23:01:12",
+            "createdAt": "2026-11-01 04:23:21",
             "publishAt": "2026-10-31 08:00:00",
             "metaTitle": "Campeonato Intercolegial | Paraíso do Saber",
             "metaDescription": "Desporto, espírito de equipa e integração estudantil no Campeonato Intercolegial do Paraíso do Saber em Cacuaco."
@@ -244,7 +280,7 @@
             "url": "/media/events/jornadas-cientificas-1.jpg",
             "size": 207071,
             "category": "Jornadas Científicas",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "f3e2594b-8a49-4289-b820-18a153822489",
@@ -254,7 +290,7 @@
             "url": "/media/events/jornadas-cientificas-2.jpg",
             "size": 217788,
             "category": "Jornadas Científicas",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "ab7c5d2a-fb7f-4557-974a-5ed93d7f8109",
@@ -264,7 +300,7 @@
             "url": "/media/events/jornadas-cientificas-3.jpg",
             "size": 130776,
             "category": "Jornadas Científicas",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "75bb23c3-8658-488c-841c-5f2a7c3f202a",
@@ -274,7 +310,7 @@
             "url": "/media/events/jornadas-cientificas-4.jpg",
             "size": 142162,
             "category": "Jornadas Científicas",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "7bd6b4da-6f46-437b-88ae-9543175229e6",
@@ -284,7 +320,7 @@
             "url": "/media/events/jornadas-cientificas-5.jpg",
             "size": 156491,
             "category": "Jornadas Científicas",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "46cdfb04-46c7-4e74-a40c-8bc82b56ed36",
@@ -294,7 +330,7 @@
             "url": "/media/events/jornadas-cientificas-6.jpg",
             "size": 45024,
             "category": "Ciência e Inovação",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "818f26c5-1a1d-4a92-844f-ecb2dac95bed",
@@ -304,7 +340,7 @@
             "url": "/media/events/jornadas-cientificas-7.jpg",
             "size": 56672,
             "category": "Ciência e Inovação",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "74da6cb2-83a0-48e4-ae13-de5cf6a07119",
@@ -314,7 +350,7 @@
             "url": "/media/events/jornadas-cientificas-8.jpg",
             "size": 52218,
             "category": "Ciência e Inovação",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "cf4f973f-2d68-4516-9abc-ebea2559a1ad",
@@ -324,7 +360,7 @@
             "url": "/media/events/jornadas-cientificas-9.jpg",
             "size": 58245,
             "category": "Ciência e Inovação",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         },
         {
             "id": "6ca8d00a-0227-4b89-bab4-229d2dcc53df",
@@ -334,7 +370,7 @@
             "url": "/media/events/jornadas-cientificas-10.jpg",
             "size": 43276,
             "category": "Ciência e Inovação",
-            "createdAt": "2026-10-31 22:55:39"
+            "createdAt": "2026-11-01 04:23:21"
         }
     ],
     "leads": [
@@ -589,6 +625,26 @@
             "details": null,
             "ip": "127.0.0.1",
             "createdAt": "2026-11-01 04:05:13"
+        },
+        {
+            "id": "59b273bc-f80d-4b36-930a-cbe4f8965aa5",
+            "userId": "7d1cbc6e-312d-41b6-868c-78a31ebde683",
+            "action": "CREATE",
+            "entity": "users",
+            "entityId": "a6ea0aee-6e44-4456-a8c0-0aaa5b3254e8",
+            "details": null,
+            "ip": "127.0.0.1",
+            "createdAt": "2026-11-01 04:13:52"
+        },
+        {
+            "id": "bf5dac1d-f311-4f71-a715-1c9613d99396",
+            "userId": "7d1cbc6e-312d-41b6-868c-78a31ebde683",
+            "action": "CREATE",
+            "entity": "users",
+            "entityId": "a8209012-9161-4799-b7dc-b33e2ff23e50",
+            "details": null,
+            "ip": "127.0.0.1",
+            "createdAt": "2026-11-01 04:14:28"
         }
     ]
 }

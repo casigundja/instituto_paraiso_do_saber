@@ -15,12 +15,25 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $email = env('ADMIN_EMAIL', 'admin@paraisodosaber.ao');
+        $password = env('ADMIN_PASSWORD', 'admin123456');
         if (! DB::table('portal_users')->where('email', $email)->exists()) {
-            $password = env('ADMIN_PASSWORD');
-            if (! $password) {
-                throw new \RuntimeException('Configure ADMIN_PASSWORD no .env antes de executar db:seed.');
-            }
-            DB::table('portal_users')->insert(['id' => (string) Str::uuid(), 'email' => $email, 'name' => 'Administrador', 'passwordHash' => Hash::make($password), 'role' => 'ADMIN', 'active' => true]);
+            DB::table('portal_users')->insert(['id' => (string) Str::uuid(), 'email' => $email, 'name' => 'Administrador Principal', 'passwordHash' => Hash::make($password), 'role' => 'ADMIN', 'active' => true]);
+        }
+        $defaultProfiles = [
+            ['email' => 'editor@paraisodosaber.ao', 'name' => 'Editor de Conteúdos', 'role' => 'EDITOR', 'password' => env('EDITOR_PASSWORD', 'editor123456')],
+            ['email' => 'secretaria@paraisodosaber.ao', 'name' => 'Atendimento / Secretaria', 'role' => 'ATTENDANCE', 'password' => env('ATTENDANCE_PASSWORD', 'secretaria123456')],
+        ];
+        foreach ($defaultProfiles as $p) {
+            DB::table('portal_users')->updateOrInsert(
+                ['email' => $p['email']],
+                [
+                    'id' => DB::table('portal_users')->where('email', $p['email'])->value('id') ?: (string) Str::uuid(),
+                    'name' => $p['name'],
+                    'passwordHash' => Hash::make($p['password']),
+                    'role' => $p['role'],
+                    'active' => true,
+                ]
+            );
         }
         $coursesSeed = [
             [

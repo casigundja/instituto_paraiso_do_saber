@@ -44,10 +44,29 @@ class PortalController extends Controller
         return $data;
     }
 
-    private function authorize(Request $request, string $entity): void
+    private function authorize(Request $request, string $entity, string $mode = 'read'): void
     {
         $role = $request->attributes->get('portalUser')->role;
-        abort_unless($role === 'ADMIN' || ($role === 'EDITOR' && in_array($entity, ['courses', 'events', 'campaigns', 'news', 'media', 'sections'])) || ($role === 'ATTENDANCE' && $entity === 'leads'), 403, 'Sem permissão para esta área.');
+        if ($role === 'ADMIN') {
+            return;
+        }
+        if ($role === 'EDITOR') {
+            $allowed = $mode === 'read'
+                ? ['events', 'campaigns', 'news', 'media', 'audit']
+                : ['events', 'campaigns', 'news', 'media'];
+            abort_unless(in_array($entity, $allowed, true), 403, 'Sem permissão para esta área.');
+
+            return;
+        }
+        if ($role === 'ATTENDANCE') {
+            $allowed = $mode === 'read'
+                ? ['courses', 'leads', 'users', 'audit']
+                : ['courses', 'leads'];
+            abort_unless(in_array($entity, $allowed, true), 403, 'Sem permissão para esta operação.');
+
+            return;
+        }
+        abort(403, 'Sem permissão para esta área.');
     }
 
     private function audit(Request $request, string $action, string $entity, string $id): void
@@ -249,7 +268,7 @@ class PortalController extends Controller
 
     public function index(Request $request, string $entity)
     {
-        $this->authorize($request, $entity);
+        $this->authorize($request, $entity, 'read');
         $query = $this->table($entity);
         if ($entity === 'leads') {
             $this->leadFilters($query, $request);
@@ -264,7 +283,7 @@ class PortalController extends Controller
 
     public function save(Request $request, string $entity, ?string $id = null)
     {
-        $this->authorize($request, $entity);
+        $this->authorize($request, $entity, 'write');
         abort_if(in_array($entity, ['audit', 'settings']) || ($entity === 'media' && ! $id), 403);
         $schema = $this->schema($entity);
         if ($id) {
@@ -366,8 +385,8 @@ class PortalController extends Controller
 
     public function remove(Request $request, string $entity, string $id)
     {
-        $this->authorize($request, $entity);
-        abort_if(in_array($entity, ['audit', 'settings']) || $request->attributes->get('portalUser')->role === 'ATTENDANCE', 403);
+        $this->authorize($request, $entity, 'write');
+        abort_if(in_array($entity, ['audit', 'settings']) || ($request->attributes->get('portalUser')->role === 'ATTENDANCE' && in_array($entity, ['leads', 'users'])), 403);
         $row = $this->table($entity)->where('id', $id)->firstOrFail();
         if ($entity === 'users') {
             abort_if($id === $request->attributes->get('portalUser')->id, 422, 'Não pode remover a própria conta.');
@@ -388,14 +407,14 @@ class PortalController extends Controller
 
     public function settings(Request $request)
     {
-        abort_unless(in_array($request->attributes->get('portalUser')->role, ['ADMIN', 'EDITOR']), 403);
+        $this->authorize($request, 'settings', 'read');
 
         return $this->table('settings')->pluck('value', 'key');
     }
 
     public function saveSettings(Request $request)
     {
-        $this->authorize($request, 'settings');
+        $this->authorize($request, 'settings', 'write');
         $data = $request->validate(['*' => 'nullable|string|max:10000']);
         DB::transaction(function () use ($data, $request) {
             foreach ($data as $key => $value) {
