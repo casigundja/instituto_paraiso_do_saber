@@ -93,7 +93,6 @@ export function ContactForm({course='',message=false}:{course?:string,message?:b
 export default function Institutional({page}:{page:'instituto'|'matriculas'|'contactos'}){
  const data=usePortal();const s=data.settings;const whatsapp='https://wa.me/'+String(s.whatsapp).replace(/\D/g,'');useTitle(page==='instituto'?'O Instituto':page==='matriculas'?'Admissões e matrículas':'Contactos');
  const [selectedVideo, setSelectedVideo] = useState('/publicidade1.mp4');
- const [facilityTab, setFacilityTab] = useState(0);
  const instituteVideos = [
    { id: 1, title: 'Apresentação Institucional', subtitle: 'Visão geral do campus e estrutura pedagógica', duration: '1:06', file: '/publicidade1.mp4', poster: '/media/video_poster.jpg' },
    { id: 2, title: 'Corpo Docente e Ensino', subtitle: 'Preparação prática e acompanhamento dos estudantes', duration: '0:54', file: '/publicidade2.mp4', poster: '/media/video_poster.jpg' },
@@ -144,35 +143,15 @@ export default function Institutional({page}:{page:'instituto'|'matriculas'|'con
           <div><strong>Telefone:</strong> {s.phone1}</div>
           <div><strong>WhatsApp:</strong> {s.phone2 || s.phone1}</div>
         </div>
-
-        <div className="in-adventista-tabs">
-          <button
-            type="button"
-            className={"in-adventista-tab " + (facilityTab === 0 ? "is-active" : "")}
-            onClick={() => setFacilityTab(0)}
-          >
-            Vista 01 · Galerias
-          </button>
-          <button
-            type="button"
-            className={"in-adventista-tab " + (facilityTab === 1 ? "is-active" : "")}
-            onClick={() => setFacilityTab(1)}
-          >
-            Vista 02 · Átrio
-          </button>
-        </div>
       </div>
 
       <div className="in-adventista-stage">
         <img
-          src={facilityTab === 0 ? "/banner-campus-galerias.jpg" : "/banner-campus-atrio.jpg"}
-          alt={facilityTab === 0 ? "Galerias superiores do Instituto Paraíso do Saber" : "Átrio central e salas de aula"}
+          src="/banner-campus-atrio.jpg"
+          alt="Átrio central e salas de aula do Instituto Paraíso do Saber"
           className="in-adventista-img"
           loading="lazy"
         />
-        <div className="in-adventista-img-tag">
-          {facilityTab === 0 ? "01 / Galerias Académicas e Corredores" : "02 / Átrio Central e Salas de Aula"}
-        </div>
       </div>
     </div>
   </section>
