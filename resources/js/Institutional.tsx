@@ -1,4 +1,4 @@
-﻿import {useState,type FormEvent} from 'react';
+import {useState,type FormEvent} from 'react';
 import PublicLayout from './PublicLayout';
 import {PageBanner,CallToAction} from './Listing';
 import {usePortal,useTitle} from './portal';
@@ -112,7 +112,7 @@ export default function Institutional({page}:{page:'instituto'|'matriculas'|'con
       <p>Conheça a oferta de cursos e converse com a nossa equipa para compreender as possibilidades de formação e os próximos passos.</p>
     </div>
     <figure>
-      <img src="/banner-instituto-estudantes.jpg" alt="Estudantes em sala de aula no Instituto Paraíso do Saber" loading="lazy" />
+      <img src="/banner-sala-aula-clean.jpg" alt="Estudantes em sala de aula no Instituto Paraíso do Saber" loading="lazy" />
       <figcaption>Instituto Paraíso do Saber · Ensino com rigor rumo à excelência</figcaption>
     </figure>
   </section>
