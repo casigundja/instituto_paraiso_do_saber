@@ -10,8 +10,8 @@ class PortalPageController extends Controller
 {
     public function show(Request $request, string $page = 'home', ?string $slug = null)
     {
-        $name = 'Instituto Paraíso do Saber';
-        $title = $name.' | Formação que transforma';
+        $name = 'Instituto Técnico Privado de Saúde Paraíso do Saber';
+        $title = $name.' | Formação que transforma vidas';
         $description = 'Conheça os cursos, eventos e atividades do Instituto Técnico Privado de Saúde Paraíso do Saber.';
         $image = URL::to('/banner1.jpeg');
         $canonical = URL::current();

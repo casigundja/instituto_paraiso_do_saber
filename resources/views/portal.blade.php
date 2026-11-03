@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>{{ $metaTitle ?? 'Instituto Paraíso do Saber | Formação que transforma' }}</title>
-    <meta name="description" content="{{ $metaDescription ?? 'Formação profissional na área da saúde. Conheça os cursos do Instituto Paraíso do Saber.' }}">
+    <title>{{ $metaTitle ?? 'Instituto Técnico Privado de Saúde Paraíso do Saber | Formação que transforma vidas' }}</title>
+    <meta name="description" content="{{ $metaDescription ?? 'Formação profissional na área da saúde. Conheça os cursos do Instituto Técnico Privado de Saúde Paraíso do Saber.' }}">
     <link rel="canonical" href="{{ $canonicalUrl ?? url('/') }}">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Instituto Paraíso do Saber">
-    <meta property="og:title" content="{{ $metaTitle ?? 'Instituto Paraíso do Saber' }}">
+    <meta property="og:site_name" content="Instituto Técnico Privado de Saúde Paraíso do Saber">
+    <meta property="og:title" content="{{ $metaTitle ?? 'Instituto Técnico Privado de Saúde Paraíso do Saber | Formação que transforma vidas' }}">
     <meta property="og:description" content="{{ $metaDescription ?? 'Formação profissional na área da saúde.' }}">
     <meta property="og:image" content="{{ $metaImage ?? url('/banner1.jpeg') }}">
     <meta property="og:url" content="{{ $canonicalUrl ?? url('/') }}">

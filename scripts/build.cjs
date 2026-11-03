@@ -51,11 +51,11 @@ function copyToDist() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>Instituto Paraíso do Saber | Formação que transforma</title>
-    <meta name="description" content="Formação profissional na área da saúde em Luanda. Conheça os cursos técnicos do Instituto Paraíso do Saber.">
+    <title>Instituto Técnico Privado de Saúde Paraíso do Saber | Formação que transforma vidas</title>
+    <meta name="description" content="Formação profissional na área da saúde em Luanda. Conheça os cursos técnicos do Instituto Técnico Privado de Saúde Paraíso do Saber.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Instituto Paraíso do Saber">
-    <meta property="og:title" content="Instituto Paraíso do Saber">
+    <meta property="og:site_name" content="Instituto Técnico Privado de Saúde Paraíso do Saber">
+    <meta property="og:title" content="Instituto Técnico Privado de Saúde Paraíso do Saber | Formação que transforma vidas">
     <meta property="og:description" content="Formação profissional na área da saúde.">
     <meta property="og:image" content="/banner1.jpeg">
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=2">

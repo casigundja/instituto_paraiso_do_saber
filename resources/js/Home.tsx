@@ -19,7 +19,7 @@ const asset = (url: string) => /^https?:\/\//.test(url) || url.startsWith('/') ?
 const Arrow = () => <span aria-hidden="true">↗</span>;
 
 export default function Home() {
-  useTitle("Formação que transforma vidas");
+  useTitle("Instituto Técnico Privado de Saúde Paraíso do Saber | Formação que transforma vidas");
   const [data, setData] = useState<any>(initial);
   const [slide, setSlide] = useState(0);
   const [paused, setPaused] = useState(false);

@@ -7,6 +7,6 @@ export function usePortal(enabled=true){
  useEffect(()=>{if(!enabled)return;let live=true;portalPromise??=fetch('/api/public/home').then(r=>{if(!r.ok)throw new Error();return r.json()}).catch(()=>{portalPromise=undefined;return {settings:defaults,courses:[],sections:[]}});portalPromise.then(d=>{if(live)setData({...d,settings:{...defaults,...d.settings}})});return()=>{live=false}},[enabled]);
  return data;
 }
-export function useTitle(title:string){useEffect(()=>{document.title=title+' | Instituto Paraíso do Saber'},[title])}
+export function useTitle(title:string){useEffect(()=>{if(!title||title==='Formação que transforma vidas'||title.includes('Instituto Técnico Privado de Saúde Paraíso do Saber')){document.title='Instituto Técnico Privado de Saúde Paraíso do Saber | Formação que transforma vidas'}else{document.title=title+' | Instituto Técnico Privado de Saúde Paraíso do Saber'}},[title])}
 export const paths={courses:'cursos',events:'eventos',news:'noticias',media:'galeria'};
 export const dateLabel=(value:string)=>value?new Date(value).toLocaleDateString('pt-PT',{day:'numeric',month:'long',year:'numeric'}):'';
