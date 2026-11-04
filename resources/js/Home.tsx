@@ -131,48 +131,9 @@ export default function Home() {
             <small>Conheça o nosso Instituto.</small>
           </div>
         </a>
-      </div><section className="ps-block ps-courses" id="cursos"><div className="ps-section-heading"><div><span className="ps-eyebrow">ESCOLHA O SEU CAMINHO</span><h2>{section('courses')?.title || 'Cursos em destaque'}</h2></div><Link href="/cursos">Todos os cursos <Arrow /></Link></div>
+      </div><section className="ps-block ps-courses" id="cursos"><div className="ps-section-heading"><div><span className="ps-eyebrow">ESCOLHA O SEU CAMINHO</span><h2>{section('courses')?.title || 'Encontre o seu curso'}</h2></div><Link href="/cursos">Todos os cursos <Arrow /></Link></div>
         {query && <p className="ps-search-result">Resultados para “{query}” <button onClick={() => setQuery('')}>Limpar pesquisa</button></p>}
-        <div className="in-catalogue">
-          {courses.map((c: any) => (
-            <article key={c.slug} className="in-catalogue-card">
-              <Link href={`/cursos/${c.slug}`} className="in-catalogue-image">
-                <img src={asset(c.image || '/banner1.jpeg')} alt={c.name} loading="lazy" />
-                <span className="in-catalogue-badge">{c.area || 'FORMAÇÃO EM SAÚDE'}</span>
-              </Link>
-              <div className="in-card-body">
-                <h3><Link href={`/cursos/${c.slug}`}>{c.name}</Link></h3>
-                <p>{c.description}</p>
-                <div className="in-card-pills">
-                  <span className="in-pill in-pill-accent">✚ Área da saúde</span>
-                  <span className="in-pill">{c.modality || 'Presencial'}</span>
-                </div>
-                <Link className="in-card-action" href={`/cursos/${c.slug}`}>
-                  <span>Conheça esta formação</span>
-                  <b aria-hidden="true">↗</b>
-                </Link>
-              </div>
-            </article>
-          ))}
-          {!query && (
-            <article className="in-catalogue-card in-catalogue-cta-card">
-              <div className="in-cta-card-content">
-                <span className="in-cta-card-badge">✚ ORIENTAÇÃO VOCACIONAL</span>
-                <h3>Dúvidas sobre qual curso escolher?</h3>
-                <p>A nossa equipa pedagógica ajuda-o a identificar a formação que melhor se adapta à sua vocação e objetivos profissionais na saúde.</p>
-                <div className="in-cta-card-highlights">
-                  <span><small>✓</small> Atendimento pedagógico próximo</span>
-                  <span><small>✓</small> Esclarecimento de saídas profissionais</span>
-                  <span><small>✓</small> Apoio direto na candidatura</span>
-                </div>
-                <Link href="/matriculas" className="ps-button ps-yellow in-cta-btn">
-                  Falar com a secretaria <span>↗</span>
-                </Link>
-              </div>
-            </article>
-          )}
-        </div>
-        {!courses.length && <p className="ps-empty">Nenhum curso encontrado. Tente outro nome.</p>}
+        <div className="ps-course-grid">{courses.map((c: any, i: number) => <Link className="ps-course-card" key={c.slug} href={`/cursos/${c.slug}`}><img src={asset(c.image || '/banner1.jpeg')} alt={c.name} loading="lazy" /><div className="ps-card-gradient" /><span className="ps-card-tag">FORMAÇÃO EM SAÚDE</span><div className="ps-course-name"><small>0{i + 1} / PARAÍSO DO SABER</small><h3>{c.name}</h3><span>Conhecer o curso <Arrow /></span></div></Link>)}</div>{!courses.length && <p className="ps-empty">Nenhum curso encontrado. Tente outro nome.</p>}
       </section>
     </>}
     {visible('enrollment') && <section className="ps-promos" id="matriculas">
