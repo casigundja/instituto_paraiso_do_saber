@@ -174,10 +174,10 @@ export function EmptyState({error=false,search=false,retry}:{error?:boolean,sear
 const info={courses:{title:'Formação que transforma.',label:'Os nossos cursos',intro:'Encontre o seu caminho na área da saúde. Conheça as formações do Paraíso do Saber e dê o próximo passo.',image:''},events:{title:'Encontros que aproximam.',label:'Agenda do Instituto',intro:'Acompanhe os encontros, atividades e iniciativas que fazem parte da vida do Instituto.',image:''},news:{title:'O Instituto em notícia.',label:'Notícias e comunicados',intro:'Informação, conhecimento e novidades para a nossa comunidade educativa.',image:''},media:{title:'Conheça. Veja. Inspire-se.',label:'Galeria multimédia',intro:'Explore os materiais de apresentação do Paraíso do Saber, as nossas fotografias e os vídeos institucionais.',image:''}};
 const materials=[{id:'institution-1',originalName:'Formação na área da saúde',url:'/banner1.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'},{id:'institution-2',originalName:'Conhecimento ao serviço do cuidado',url:'/banner2.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'},{id:'institution-3',originalName:'Aprender para transformar vidas',url:'/banner3.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'}];
 export function Listing({type}:{type:Kind}){
- const defaultStep=type==='media'?12:9;
+ const defaultStep=type==='media'?6:9;
  const [rows,setRows]=useState<any[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState(false),[q,setQ]=useState(new URLSearchParams(location.search).get('q')||''),[filter,setFilter]=useState('Todos'),[retry,setRetry]=useState(0),[limit,setLimit]=useState(defaultStep),[selected,setSelected]=useState<any>(null);
  const meta=info[type];useTitle(meta.label);
- useEffect(()=>{setLimit(type==='media'?12:9)},[type]);
+ useEffect(()=>{setLimit(type==='media'?6:9)},[type]);
  useEffect(()=>{const controller=new AbortController();setLoading(true);setError(false);fetch('/api/public/'+type,{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error();return r.json()}).then(setRows).catch(e=>{if(e.name!=='AbortError')setError(true)}).finally(()=>{if(!controller.signal.aborted)setLoading(false)});return()=>controller.abort()},[type,retry]);
  const all=type==='media'?[...rows,...materials]:rows;
  const mediaCategories=type==='media'?[...new Set(all.map((r:any)=>r.category).filter(Boolean))]:[];
@@ -223,7 +223,6 @@ export function Listing({type}:{type:Kind}){
    {!(type==='media'&&filter==='Vídeos')&&<>
     <div className="in-gallery-results-bar">
       <div className="in-result-count"><strong>{filtered.length}</strong> {type==='courses'?(filtered.length===1?'formação disponível':'formações disponíveis'):(filtered.length===1?'registo disponível':'registos disponíveis')}{q&&` para “${q}”`}{filter!=='Todos'&&filter!=='Imagens'&&` em ${filter}`}</div>
-      {type==='media'&&<span className="in-gallery-click-hint">🔍 Clique em qualquer fotografia para ampliar em ecrã inteiro</span>}
     </div>
     <div className={`in-catalogue ${type==='media'?'in-gallery':''}`}>
      {filtered.slice(0,limit).map((r:any,idx:number)=>type==='media'?(
@@ -260,7 +259,28 @@ export function Listing({type}:{type:Kind}){
          </div>
        </article>
      )}
-    </div>{!filtered.length&&<EmptyState search={Boolean(q)||filter!=='Todos'} retry={q||filter!=='Todos'?clear:undefined}/>} {filtered.length>limit&&<button className="ps-button ps-blue in-load-more" onClick={()=>setLimit(n=>n+defaultStep)}>Mostrar mais conteúdos ({filtered.length-limit} restantes) ↓</button>}</>}
+    </div>{!filtered.length&&<EmptyState search={Boolean(q)||filter!=='Todos'} retry={q||filter!=='Todos'?clear:undefined}/>} {type==='media' ? (
+      (filtered.length>limit || limit>6) && (
+        <div style={{display:'flex',justifyContent:'center',gap:'12px',marginTop:'28px',flexWrap:'wrap'}}>
+          {filtered.length>limit && (
+            <button className="ps-button ps-blue in-load-more" onClick={()=>setLimit(n=>n+defaultStep)}>
+              Mostrar mais fotografias ({filtered.length-limit} restantes) ↓
+            </button>
+          )}
+          {limit>6 && (
+            <button className="ps-button ps-outline in-load-more" onClick={()=>setLimit(6)}>
+              Mostrar menos ↑
+            </button>
+          )}
+        </div>
+      )
+    ) : (
+      filtered.length>limit && (
+        <button className="ps-button ps-blue in-load-more" onClick={()=>setLimit(n=>n+defaultStep)}>
+          Mostrar mais conteúdos ({filtered.length-limit} restantes) ↓
+        </button>
+      )
+    )}</>}
    {type==='media'&&(filter==='Todos'||filter==='Vídeos')&&(
      <section className="in-videos">
        <div className="ps-section-heading">
