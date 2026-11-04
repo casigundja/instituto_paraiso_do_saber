@@ -78,8 +78,12 @@ export default function Home() {
       <nav className="ps-course-tabs" aria-label="Cursos disponíveis">{data.courses.map((c: any) => {
         const isDental = c.slug === 'estomatologia' || c.name.includes('/');
         return (
-          <Link key={c.slug} href={`/cursos/${c.slug}`}>
-            <span className="ps-course-icon" aria-hidden="true">✚</span>
+          <Link key={c.slug} href={`/cursos/${c.slug}`} className="ps-course-tab-item">
+            <span className="ps-course-icon-badge" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+              </svg>
+            </span>
             <span className="ps-course-label">
               {isDental ? (
                 <>
@@ -90,7 +94,6 @@ export default function Home() {
                 <span>{c.name}</span>
               )}
             </span>
-            <Arrow />
           </Link>
         );
       })}</nav>
