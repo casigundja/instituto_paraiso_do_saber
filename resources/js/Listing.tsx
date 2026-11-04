@@ -175,9 +175,9 @@ const info={courses:{title:'Formação que transforma.',label:'Os nossos cursos'
 const materials=[{id:'institution-1',originalName:'Formação na área da saúde',url:'/banner1.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'},{id:'institution-2',originalName:'Conhecimento ao serviço do cuidado',url:'/banner2.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'},{id:'institution-3',originalName:'Aprender para transformar vidas',url:'/banner3.jpeg',category:'Apresentação institucional',mimeType:'image/jpeg'}];
 export function Listing({type}:{type:Kind}){
  const defaultStep=type==='media'?6:9;
- const [rows,setRows]=useState<any[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState(false),[q,setQ]=useState(new URLSearchParams(location.search).get('q')||''),[filter,setFilter]=useState('Todos'),[retry,setRetry]=useState(0),[limit,setLimit]=useState(defaultStep),[selected,setSelected]=useState<any>(null);
+ const [rows,setRows]=useState<any[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState(false),[q,setQ]=useState(new URLSearchParams(location.search).get('q')||''),[filter,setFilter]=useState('Todos'),[retry,setRetry]=useState(0),[limit,setLimit]=useState(defaultStep),[videoLimit,setVideoLimit]=useState(3),[selected,setSelected]=useState<any>(null);
  const meta=info[type];useTitle(meta.label);
- useEffect(()=>{setLimit(type==='media'?6:9)},[type]);
+ useEffect(()=>{setLimit(type==='media'?6:9);setVideoLimit(3)},[type]);
  useEffect(()=>{const controller=new AbortController();setLoading(true);setError(false);fetch('/api/public/'+type,{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error();return r.json()}).then(setRows).catch(e=>{if(e.name!=='AbortError')setError(true)}).finally(()=>{if(!controller.signal.aborted)setLoading(false)});return()=>controller.abort()},[type,retry]);
  const all=type==='media'?[...rows,...materials]:rows;
  const mediaCategories=type==='media'?[...new Set(all.map((r:any)=>r.category).filter(Boolean))]:[];
