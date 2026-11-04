@@ -529,22 +529,18 @@ body.theme-dark .ps-sidebar-brand > img {
 
 /* Faixa de Destaques da Home (.ps-home-strip) */
 body.theme-dark .ps-home-strip {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-body.theme-dark .ps-home-strip-item,
-body.theme-dark .ps-home-strip > div,
-body.theme-dark .ps-home-strip > a {
   background: #15222e !important;
-  border: 1px solid #263847 !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
+  border-color: #263847 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3) !important;
+}
+body.theme-dark .ps-home-strip-item:not(:last-child),
+body.theme-dark .ps-home-strip > div:not(:last-child),
+body.theme-dark .ps-home-strip > a:not(:last-child) {
+  border-color: #263847 !important;
 }
 body.theme-dark .ps-home-strip-item:hover,
 body.theme-dark .ps-home-strip > a:hover {
   background: #1c2c3b !important;
-  border-color: #3b5266 !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4) !important;
 }
 body.theme-dark .ps-strip-icon,
 body.theme-dark .ps-home-strip b {
@@ -558,15 +554,6 @@ body.theme-dark .ps-home-strip strong {
 }
 body.theme-dark .ps-home-strip small {
   color: #8fa5b8 !important;
-}
-body.theme-dark .ps-strip-arrow {
-  background: #1c2a38 !important;
-  color: #c0d4e5 !important;
-}
-body.theme-dark .ps-home-strip-item:hover .ps-strip-arrow,
-body.theme-dark .ps-home-strip > a:hover .ps-strip-arrow {
-  background: #f7c844 !important;
-  color: #06366a !important;
 }
 
 /* Páginas Internas (Cursos, Eventos, Notícias, Galeria, O Instituto, Matrículas, Contactos) */
