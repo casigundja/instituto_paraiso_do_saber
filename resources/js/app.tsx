@@ -13,6 +13,6 @@ function Portal(){
  const toggleTheme=()=>setTheme(t=>t==='dark'?'light':'dark');
  useEffect(()=>{document.body.classList.toggle('theme-dark',theme==='dark');localStorage.setItem('ps_theme',theme)},[theme]);
  const content=page==='admin'?<Admin theme={theme} onToggleTheme={toggleTheme}/>:page==='recuperar-senha'?<PasswordRecovery/>:page==='redefinir-senha'?<PasswordRecovery reset/>:['instituto','matriculas','contactos'].includes(page)?<Institutional page={page as 'instituto'|'matriculas'|'contactos'}/>:type?(slug&&type!=='media'?<Detail type={type} slug={decodeURIComponent(slug)}/>:<Listing type={type}/>):<Home/>;
- return <>{content}<button className="theme-toggle" onClick={toggleTheme} aria-label={theme==='dark'?'Ativar modo claro':'Ativar modo escuro'} title={theme==='dark'?'Modo claro':'Modo escuro'}><span aria-hidden="true">{theme==='dark'?'☀':'☾'}</span>{theme==='dark'?'Modo claro':'Modo escuro'}</button></>;
+ return <>{content}<button className="theme-toggle" onClick={toggleTheme} aria-label={theme==='dark'?'Ativar modo claro':'Ativar modo escuro'} title={theme==='dark'?'Modo claro':'Modo escuro'}><span aria-hidden="true">{theme==='dark'?'☀':'☾'}</span></button></>;
 }
 createRoot(document.getElementById('app')!).render(<Portal />);
