@@ -19,24 +19,6 @@
             "updatedAt": "2026-11-01 04:05:13"
         },
         {
-            "id": "a6ea0aee-6e44-4456-a8c0-0aaa5b3254e8",
-            "email": "noticia@outlook.com",
-            "name": "Teste",
-            "role": "EDITOR",
-            "active": true,
-            "createdAt": "2026-11-01 04:13:52",
-            "updatedAt": "2026-11-01 04:13:52"
-        },
-        {
-            "id": "a8209012-9161-4799-b7dc-b33e2ff23e50",
-            "email": "secretario@outlook.com",
-            "name": "Secretario",
-            "role": "ATTENDANCE",
-            "active": true,
-            "createdAt": "2026-11-01 04:14:28",
-            "updatedAt": "2026-11-01 04:14:28"
-        },
-        {
             "id": "7604a0dd-6c40-4189-86ac-194ef64a7909",
             "email": "editor@paraisodosaber.ao",
             "name": "Editor de Conteúdos",
@@ -695,6 +677,26 @@
             "details": null,
             "ip": "127.0.0.1",
             "createdAt": "2026-11-01 04:14:28"
+        },
+        {
+            "id": "4c95d93a-a690-40d2-9b74-e81eff1fa25b",
+            "userId": "4e382a00-4462-43ef-bb09-af1174017b9d",
+            "action": "DELETE",
+            "entity": "users",
+            "entityId": "a8209012-9161-4799-b7dc-b33e2ff23e50",
+            "details": null,
+            "ip": "127.0.0.1",
+            "createdAt": "2026-11-04 02:24:12"
+        },
+        {
+            "id": "d85ce6f8-0c32-44ff-aff5-ece617759f8c",
+            "userId": "4e382a00-4462-43ef-bb09-af1174017b9d",
+            "action": "DELETE",
+            "entity": "users",
+            "entityId": "a6ea0aee-6e44-4456-a8c0-0aaa5b3254e8",
+            "details": null,
+            "ip": "127.0.0.1",
+            "createdAt": "2026-11-04 02:24:17"
         }
     ]
 }

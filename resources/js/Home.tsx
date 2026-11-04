@@ -106,6 +106,7 @@ export default function Home() {
             <strong>Formação em saúde</strong>
             <small>Conhecimento para cuidar.</small>
           </div>
+          <span className="ps-strip-arrow" aria-hidden="true">↗</span>
         </a>
         <a href="/matriculas" className="ps-home-strip-item">
           <div className="ps-strip-icon" aria-hidden="true">
@@ -118,6 +119,7 @@ export default function Home() {
             <strong>O seu próximo passo</strong>
             <small>Orientação para a sua escolha.</small>
           </div>
+          <span className="ps-strip-arrow" aria-hidden="true">↗</span>
         </a>
         <a href="/instituto" className="ps-home-strip-item">
           <div className="ps-strip-icon" aria-hidden="true">
@@ -130,6 +132,7 @@ export default function Home() {
             <strong>Perto de si</strong>
             <small>Conheça o nosso Instituto.</small>
           </div>
+          <span className="ps-strip-arrow" aria-hidden="true">↗</span>
         </a>
       </div><section className="ps-block ps-courses" id="cursos"><div className="ps-section-heading"><div><span className="ps-eyebrow">ESCOLHA O SEU CAMINHO</span><h2>{section('courses')?.title || 'Encontre o seu curso'}</h2></div><Link href="/cursos">Todos os cursos <Arrow /></Link></div>
         {query && <p className="ps-search-result">Resultados para “{query}” <button onClick={() => setQuery('')}>Limpar pesquisa</button></p>}
