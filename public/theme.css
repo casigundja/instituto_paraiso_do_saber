@@ -478,8 +478,7 @@ body.theme-dark .ps-footer .ps-footer-bottom {
 }
 
 body.theme-dark .ps-mobile-header,
-body.theme-dark .ps-topnav,
-body.theme-dark .ps-footer {
+body.theme-dark .ps-topnav {
   background: #0d2b49;
   border: 1px solid #1d4064;
 }
