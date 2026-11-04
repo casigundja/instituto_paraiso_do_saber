@@ -237,7 +237,6 @@ export function Listing({type}:{type:Kind}){
            </div>
          </div>
          <div className="in-gallery-card-body">
-           <small>{r.category||'Galeria do Instituto'}</small>
            <h3>{r.originalName}</h3>
            <div className="in-gallery-card-footer">
              <span>Registo oficial • Paraíso do Saber</span>
