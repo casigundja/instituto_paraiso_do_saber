@@ -139,7 +139,6 @@ export function InterestModal({course, onClose}:{course:string, onClose:()=>void
                   <select name="notes" className="modal-input" defaultValue="Turno da Manhã (07h00 - 12h30)">
                     <option value="Turno da Manhã (07h00 - 12h30)">Manhã (07h00 - 12h30)</option>
                     <option value="Turno da Tarde (12h45 - 18h00)">Tarde (12h45 - 18h00)</option>
-                    <option value="Turno Pós-Laboral (18h00 - 21h30)">Pós-Laboral (18h00 - 21h30)</option>
                   </select>
                 </label>
               </div>
