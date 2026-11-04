@@ -291,7 +291,7 @@ export function Listing({type}:{type:Kind}){
          <span className="in-videos-count">{videos.length} {videos.length === 1 ? 'vídeo disponível' : 'vídeos disponíveis'}</span>
        </div>
        <div className="in-video-grid">
-         {videos.map((v) => (
+         {videos.slice(0, videoLimit).map((v) => (
            <article key={v.url} className="in-video-card">
              <div className="in-video-card-media">
                <span className="in-video-card-badge">REELS {String(v.id).padStart(2, '0')}</span>
@@ -311,6 +311,19 @@ export function Listing({type}:{type:Kind}){
            </article>
          ))}
        </div>
+       {videos.length > 3 && (
+         <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '28px', flexWrap: 'wrap' }}>
+           {videoLimit < videos.length ? (
+             <button className="ps-button ps-blue in-load-more" onClick={() => setVideoLimit(videos.length)}>
+               Mostrar mais vídeos ({videos.length - videoLimit} restantes) ↓
+             </button>
+           ) : (
+             <button className="ps-button ps-outline in-load-more" onClick={() => setVideoLimit(3)}>
+               Mostrar menos ↑
+             </button>
+           )}
+         </div>
+       )}
        {!videos.length&&filter==='Vídeos'&&<EmptyState search retry={clear}/>}
      </section>
    )}
