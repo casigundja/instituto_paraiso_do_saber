@@ -17,6 +17,13 @@
       "custom_domain": true
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "paraiso-saber-db",
+      "database_id": "3cfc5597-d9ed-474d-9040-e785960e2b96"
+    }
+  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
