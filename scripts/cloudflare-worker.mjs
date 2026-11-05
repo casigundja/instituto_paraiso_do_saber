@@ -30,9 +30,27 @@ export default {
       return json({ ok: true });
     }
 
+    // Servir ficheiros carregados no R2
+    if (path.startsWith('/uploads/') && request.method === 'GET') {
+      if (env.ASSETS_R2) {
+        const key = decodeURIComponent(path.slice('/uploads/'.length));
+        const object = await env.ASSETS_R2.get(key);
+        if (!object) {
+          return new Response('Ficheiro não encontrado.', { status: 404 });
+        }
+        const headers = new Headers();
+        object.writeHttpMetadata(headers);
+        headers.set('etag', object.httpEtag);
+        headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+        headers.set('Access-Control-Allow-Origin', '*');
+        return new Response(object.body, { headers });
+      }
+      return new Response('Armazenamento R2 ainda não vinculado.', { status: 404 });
+    }
+
     if (path.startsWith('/api/')) {
       if (path === '/api/health') {
-        return json({ status: 'ok', d1: Boolean(db) });
+        return json({ status: 'ok', d1: Boolean(db), r2: Boolean(env.ASSETS_R2) });
       }
 
       // Public Home Data
@@ -402,7 +420,7 @@ export default {
         });
       }
 
-      // Admin File Uploads
+      // Admin File Uploads (R2 com fallback automático para D1)
       if (path === '/api/admin/upload' && request.method === 'POST') {
         const user = await resolveAuthUser();
         if (!user) return json({ message: 'Não autenticado.' }, 401);
@@ -415,20 +433,33 @@ export default {
         }
 
         const buffer = await file.arrayBuffer();
-        const bytes = new Uint8Array(buffer);
-        let binary = '';
-        for (let i = 0; i < bytes.length; i++) {
-          binary += String.fromCharCode(bytes[i]);
+        const id = crypto.randomUUID();
+        const cleanName = encodeURIComponent(file.name.replace(/[^a-zA-Z0-9._-]/g, '_'));
+        let finalUrl = '';
+
+        if (env.ASSETS_R2) {
+          const r2Key = `${id}/${cleanName}`;
+          await env.ASSETS_R2.put(r2Key, buffer, {
+            httpMetadata: {
+              contentType: file.type || 'image/jpeg',
+            },
+          });
+          finalUrl = `/uploads/${r2Key}`;
+        } else {
+          const bytes = new Uint8Array(buffer);
+          let binary = '';
+          for (let i = 0; i < bytes.length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          finalUrl = `data:${file.type || 'image/jpeg'};base64,${btoa(binary)}`;
         }
-        const base64 = btoa(binary);
-        const dataUrl = `data:${file.type || 'image/jpeg'};base64,${base64}`;
 
         const mediaRecord = {
-          id: crypto.randomUUID(),
+          id,
           filename: file.name,
           originalName: file.name,
           mimeType: file.type || 'image/jpeg',
-          url: dataUrl,
+          url: finalUrl,
           size: file.size,
           category: 'Geral',
           createdAt: new Date().toISOString(),

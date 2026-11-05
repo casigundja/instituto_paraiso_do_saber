@@ -1,0 +1,10 @@
+// Snippet para adicionar ao ficheiro wrangler.jsonc após ativar o R2
+// e criar o bucket "paraiso-saber-assets" no painel da Cloudflare (dash.cloudflare.com):
+{
+  "r2_buckets": [
+    {
+      "binding": "ASSETS_R2",
+      "bucket_name": "paraiso-saber-assets"
+    }
+  ]
+}
