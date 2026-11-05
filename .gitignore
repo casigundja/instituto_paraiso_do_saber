@@ -4,6 +4,7 @@ dist/
 scratch/
 artifacts/
 .phpunit.result.cache
+.wrangler/
 apps/api/generated/
 # Environment and Secrets
 .env
