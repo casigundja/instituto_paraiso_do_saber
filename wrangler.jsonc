@@ -24,6 +24,12 @@
       "database_id": "3cfc5597-d9ed-474d-9040-e785960e2b96"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "ASSETS_R2",
+      "bucket_name": "paraiso-saber-assets"
+    }
+  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
