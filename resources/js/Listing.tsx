@@ -369,7 +369,13 @@ export function Detail({type,slug}:{type:'courses'|'events'|'news',slug:string})
  const [viewerIndex, setViewerIndex] = useState<number | null>(null);
  const data=usePortal();useTitle(item?.name||item?.title||info[type].label);
 
- const getEventPhotos = (s: string) => {
+ const getEventPhotos = (s: string, itm?: any): Array<{ src: string; title: string }> => {
+   if (itm?.gallery && Array.isArray(itm.gallery) && itm.gallery.length > 0) {
+     return itm.gallery.map((g: any, i: number) => ({
+       src: typeof g === 'string' ? g : g.url || g.src,
+       title: (typeof g === 'object' && g.title) || `${itm.title || 'Evento'} — Foto ${i + 1}`,
+     }));
+   }
    if (s === 'jornadas-cientificas-instituto-paraiso-do-saber') {
      return Array.from({length: 10}, (_, i) => ({
        src: `/media/events/jornadas-cientificas-${i + 1}.jpg`,
@@ -405,7 +411,7 @@ export function Detail({type,slug}:{type:'courses'|'events'|'news',slug:string})
    return [];
  };
 
- const eventPhotos = getEventPhotos(item?.slug || slug);
+ const eventPhotos = getEventPhotos(item?.slug || slug, item);
 
  useEffect(()=>{
    if(viewerIndex === null) return;

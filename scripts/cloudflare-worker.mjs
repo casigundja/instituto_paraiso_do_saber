@@ -131,16 +131,8 @@ export default {
         const token = auth.slice(7).trim();
         const users = state.users || [];
         const matched = users.find((u) => token === `cf-session-${u.role}-${u.id}`);
-        if (matched) return matched;
-        if (token.includes('EDITOR')) return users.find((u) => u.role === 'EDITOR') || null;
-        if (token.includes('ATTENDANCE')) return users.find((u) => u.role === 'ATTENDANCE') || null;
-        return users[0] || {
-          id: 'admin-1',
-          name: 'Administrador Principal',
-          email: 'admin@paraisodosaber.ao',
-          role: 'ADMIN',
-          active: true,
-        };
+        if (matched && matched.active !== false) return matched;
+        return null;
       };
 
       const canAccessEntity = (role, entity, mode = 'read') => {
@@ -231,6 +223,73 @@ export default {
         const body = await request.json().catch(() => ({}));
         state.sections = (state.sections || []).map((s) => (s.id === id ? { ...s, ...body } : s));
         return json(state.sections.find((s) => s.id === id) || body);
+      }
+
+      if ((path === '/api/admin/leads/export.csv' || path === '/api/admin/leads/export.xlsx') && request.method === 'GET') {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
+        if (!canAccessEntity(user.role, 'leads', 'read')) {
+          return json({ message: 'Sem permissão para exportar pedidos.' }, 403);
+        }
+        const leads = state.leads || [];
+        const headers = ['ID', 'Nome', 'Telefone', 'WhatsApp', 'E-mail', 'Curso', 'Município', 'Notas', 'Estado', 'Data de Registo'];
+        const escapeCsv = (val) => '"' + String(val ?? '').replace(/"/g, '""') + '"';
+        const rows = [
+          headers.map(escapeCsv).join(';'),
+          ...leads.map((l) => [
+            l.id,
+            l.name,
+            l.phone,
+            l.whatsapp,
+            l.email,
+            l.course,
+            l.municipality,
+            l.notes,
+            l.status,
+            l.createdAt,
+          ].map(escapeCsv).join(';'))
+        ];
+        const csvContent = '\uFEFF' + rows.join('\r\n');
+        return new Response(csvContent, {
+          headers: {
+            'Content-Type': 'text/csv; charset=utf-8',
+            'Content-Disposition': 'attachment; filename="pedidos-informacao.csv"',
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+      }
+
+      if (path === '/api/admin/upload' && request.method === 'POST') {
+        const user = resolveAuthUser();
+        if (!user) return json({ message: 'Não autenticado.' }, 401);
+        if (!canAccessEntity(user.role, 'media', 'write')) {
+          return json({ message: 'Sem permissão para carregar ficheiros.' }, 403);
+        }
+        const formData = await request.formData().catch(() => null);
+        const file = formData ? formData.get('file') : null;
+        if (!file || typeof file === 'string') {
+          return json({ message: 'Ficheiro não fornecido.' }, 422);
+        }
+        const buffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        const base64 = btoa(binary);
+        const dataUrl = `data:${file.type || 'image/jpeg'};base64,${base64}`;
+        const mediaRecord = {
+          id: crypto.randomUUID(),
+          filename: file.name,
+          originalName: file.name,
+          mimeType: file.type || 'image/jpeg',
+          url: dataUrl,
+          size: file.size,
+          category: 'Geral',
+          createdAt: new Date().toISOString(),
+        };
+        state.media = [mediaRecord, ...(state.media || [])];
+        return json(mediaRecord, 201);
       }
 
       const adminEntityMatch = path.match(/^\/api\/admin\/(courses|events|campaigns|news|leads|users|media|audit)(?:\/([^/]+))?$/);
